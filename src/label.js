@@ -153,7 +153,7 @@ tree.label.img = function () {
 };
 
 // Labels made of 2+ simple labels
-label.composite = function () {
+tree.label.composite = function () {
 
     var labels = [];
 
