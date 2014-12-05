@@ -37,4 +37,21 @@ describe ('TnT tree', function () {
 	assert.isFunction(tnt.tree.parse_nhx);
     });
 
+    console.log(tnt.utils);
+
+    it ("Has tnt utils", function () {
+	assert.isDefined(tnt.utils);
+
+	//script_path
+	assert.isDefined(tnt.utils.script_path);
+	assert.isFunction(tnt.utils.script_path);
+
+	//defer_cancel
+	assert.isDefined(tnt.utils.defer_cancel);
+	assert.isFunction(tnt.utils.defer_cancel);
+
+	// reduce
+	assert.isDefined(tnt.utils.reduce);
+    });
+
 });
