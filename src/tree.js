@@ -191,6 +191,10 @@ tnt.tree = function () {
 
 	// Update plots an updated tree
 	api.method ('update', function() {
+	    tree_div
+		.style("width", (conf.layout.width() + "px"));
+	    svg.attr("width", conf.layout.width());
+
 	    var cluster = conf.layout.cluster;
 	    var diagonal = conf.layout.diagonal();
 	    var transform = conf.layout.transform_node;
