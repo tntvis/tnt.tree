@@ -1,6 +1,5 @@
 var tnt = require ("../index.js");
 var assert = require("chai").assert;
-var d3 = require("d3");
 
 describe ('TnT tree', function () {
     it ("Imports correctly", function () {
