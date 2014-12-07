@@ -39,11 +39,13 @@
     "gulp-mocha": "^1.0.0",
     "gulp-rename": "^1.2.0",
     "gulp-rimraf": "^0.1.0",
+    "gulp-sass": "^1.2.4",
     "gulp-uglify": "^1.0.1",
     "gulp-watch": "^1.0.2",
     "mkdirp": "^0.5.0",
     "mocha": "~1.20.1",
     "mocha-lcov-reporter": "0.0.1",
+    "npm-css": "^0.2.3",
     "uglify-js": "~2.4.15",
     "watchify": "^1.0.2"
   },

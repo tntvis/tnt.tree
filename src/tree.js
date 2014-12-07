@@ -1,19 +1,13 @@
 var apijs = require("../../tnt.api/index.js");
 
-var tnt = {};
-tnt.node = require("../../tnt.node/index.js");
-tnt.label = require("./label.js");
-tnt.layout = require("./layout.js");
-tnt.node_display = require("./node_display");
-
 tnt.tree = function () {
     "use strict";
 
     var conf = {
 	duration         : 500,      // Duration of the transitions
-	node_display     : tnt.node_display.circle(),
-	label            : tnt.label.text(),
-	layout           : tnt.layout.vertical(),
+	node_display     : tnt.tree.node_display.circle(),
+	label            : tnt.tree.label.text(),
+	layout           : tnt.tree.layout.vertical(),
 	on_click         : function () {},
 	on_dbl_click     : function () {},
 	on_mouseover     : function () {},
@@ -138,7 +132,7 @@ tnt.tree = function () {
 	    	return "tnt_tree_link_" + div_id + "_" + d.target._id;
 	    })
 	    .style("stroke", function (d) {
-		return d3.functor(conf.link_color)(tnt.node(d.source), tnt.node(d.target));
+		return d3.functor(conf.link_color)(tnt.tree.node(d.source), tnt.tree.node(d.target));
 	    })
 	    .attr("d", diagonal);	    
 
@@ -167,25 +161,25 @@ tnt.tree = function () {
 	// display node shape
 	new_node
 	    .each (function (d) {
-		conf.node_display.call(this, tnt.node(d))
+		conf.node_display.call(this, tnt.tree.node(d))
 	    });
 
 	// display node label
 	new_node
 	    .each (function (d) {
-	    	conf.label.call(this, tnt.node(d), conf.layout.type);
+	    	conf.label.call(this, tnt.tree.node(d), conf.layout.type);
 	    });
 
 	new_node.on("click", function (node) {
-	    conf.on_click.call(this, tnt.node(node));
+	    conf.on_click.call(this, tnt.tree.node(node));
 	});
 
 	new_node.on("mouseenter", function (node) {
-	    conf.on_mouseover.call(this, tnt.node(node));
+	    conf.on_mouseover.call(this, tnt.tree.node(node));
 	});
 
 	new_node.on("dblclick", function (node) {
-	    conf.on_dbl_click.call(this, tnt.node(node));
+	    conf.on_dbl_click.call(this, tnt.tree.node(node));
 	});
 
 
@@ -253,7 +247,7 @@ tnt.tree = function () {
 		    return "tnt_tree_link_" + div_id + "_" + d.target._id;
 		})
 		.attr("stroke", function (d) {
-		    return d3.functor(conf.link_color)(tnt.node(d.source), tnt.node(d.target));
+		    return d3.functor(conf.link_color)(tnt.tree.node(d.source), tnt.tree.node(d.target));
 		})
 		.attr("d", diagonal);
 
@@ -290,15 +284,15 @@ tnt.tree = function () {
 		.remove();
 
 	    new_node.on("click", function (node) {
-		conf.on_click.call(this, tnt.node(node));
+		conf.on_click.call(this, tnt.tree.node(node));
 	    });
 
 	    new_node.on("mouseenter", function (node) {
-		conf.on_mouseover.call(this, tnt.node(node));
+		conf.on_mouseover.call(this, tnt.tree.node(node));
 	    });
 
 	    new_node.on("dblclick", function (node) {
-		conf.on_dbl_click.call(this, tnt.node(node));
+		conf.on_dbl_click.call(this, tnt.tree.node(node));
 	    });
 
 
@@ -306,13 +300,13 @@ tnt.tree = function () {
 	    node.selectAll("*").remove();
 	    node
 		    .each(function (d) {
-			conf.node_display.call(this, tnt.node(d))
+			conf.node_display.call(this, tnt.tree.node(d))
 		    });
 
 	    // We need to re-create all the labels again in case they have changed lively (or the layout)
 	    node
 		    .each (function (d) {
-			conf.label.call(this, tnt.node(d), conf.layout.type);
+			conf.label.call(this, tnt.tree.node(d), conf.layout.type);
 		    });
 
 	    node
@@ -339,7 +333,7 @@ tnt.tree = function () {
 	curr.data = d;
 
 	// Set up a new tree based on the data
-	var newtree = tnt.node(base.data);
+	var newtree = tnt.tree.node(base.data);
 
 	tree.root(newtree);
 	return tree;

@@ -13,6 +13,7 @@ var watch = require('gulp-watch');
 var uglify = require('gulp-uglify');
 var browserify = require('gulp-browserify');
 var coveralls = require('gulp-coveralls');
+var sass = require('gulp-sass');
 
 // gulp helper
 var gzip = require('gulp-gzip');
@@ -77,8 +78,15 @@ gulp.task('init', ['clean'], function() {
   });
 });
 
+// sass-import
+gulp.task('sass-import', function () {
+    return gulp.src("index.scss")
+	.pipe(sass())
+	.pipe(gulp.dest(buildDir));
+});
+
 // browserify debug
-gulp.task('build-browser',['init'], function() {
+gulp.task('build-browser',['init', 'sass-import'], function() {
   return gulp.src(browserFile)
   .pipe(browserify({debug:true}))
   .pipe(rename(outputFileSt))
@@ -86,7 +94,7 @@ gulp.task('build-browser',['init'], function() {
 });
 
 // browserify min
-gulp.task('build-browser-min',['init'], function() {
+gulp.task('build-browser-min',['init', 'sass-import'], function() {
   return gulp.src(browserFile)
   .pipe(browserify({}))
   .pipe(uglify())

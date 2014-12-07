@@ -12,6 +12,11 @@ describe ('TnT tree', function () {
 	assert.isFunction(tnt.tree.node);
     });
 
+    it ("Has node displays", function () {
+	assert.isDefined(tnt.tree.node_display);
+	assert.isFunction(tnt.tree.node_display)
+    });
+    
     it ("Has labels", function () {
 	assert.isDefined(tnt.tree.label);
 	assert.isFunction(tnt.tree.label);
@@ -37,8 +42,6 @@ describe ('TnT tree', function () {
 	assert.isFunction(tnt.tree.parse_nhx);
     });
 
-    console.log(tnt.utils);
-
     it ("Has tnt utils", function () {
 	assert.isDefined(tnt.utils);
 
@@ -54,4 +57,9 @@ describe ('TnT tree', function () {
 	assert.isDefined(tnt.utils.reduce);
     });
 
+    it ("Has tooltips", function () {
+	assert.isDefined(tnt.tooltip);
+	assert.isFunction(tnt.tooltip);
+    });
+    
 });
