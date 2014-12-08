@@ -12,19 +12,13 @@
 <!-- <link rel="import" href="http://www.polymer-project.org/components/paper-dropdown-menu/paper-dropdown-menu.html"> -->
 <!-- <link rel="import" href="http://www.polymer-project.org/components/paper-dropdown/paper-dropdown.html"> -->
 
-
-<!-- I think we don't need this -->
-<!-- <link rel="stylesheet" href="http://emepyc.github.io/tnt/v0/tnt.css" type="text/css" /> -->
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="../../build/tnt.tree.js"></script>
 <script src="theme.js"></script>
 <script src="pics.js"></script>
 
-<polymer-element name="species-tree-toolbar" attributes="layout subtree">
+<polymer-element name="species-tree-toolbar" attributes="layout subtree subtrees">
   <template>
-    <style>
-    </style>
-
     <core-toolbar style="background: #EEEEEE;">
 
     <!-- Layout -->
@@ -41,11 +35,9 @@
       <core-dropdown-menu label="Tree..." style="background: #EEEEEE;">
 	<core-dropdown class="dropdown">
 	  <core-selector selected="0" on-core-select="{{subtreeChange}}">
-	    <core-item label="All" style="background: #EEEEEE;"></core-item>
-	    <core-item label="Mammals" style="background: #EEEEEE;"></core-item>
-	    <core-item label="Sauropsids" style="background: #EEEEEE;"></core-item>
-	    <core-item label="Amniotes" style="background: #EEEEEE;"></core-item>
-	    <core-item label="Fish" style="background: #EEEEEE;"></core-item>
+	    <template repeat="{{ subtreesarray }}">
+	      <core-item label="{{}}" style="background: #EEEEEE;"></core-item>
+	    </template>
 	  </core-selector>
 	</core-dropdown>
       </core-dropdown-menu>
@@ -54,6 +46,7 @@
   </template>
   <script>
     Polymer({
+      subtrees : "All",
       layoutChange : function (event, detail, sender) {
           if (detail.isSelected) {
             this.layout = detail.item.label;
@@ -63,13 +56,35 @@
           if (detail.isSelected) {
             this.subtree = detail.item.label;
           }
-      }
+    },
+    ready : function () {
+    this.subtreesarray = this.subtrees.split(" ");
+    console.log(this.subtreesarray);
+    }
     });
   </script>
 </polymer-element>
 
 <polymer-element name="tnt-species-tree" attributes="layout width subtree">
   <template>
+    <style>
+      .tnt_zmenu_header {
+        background: rgb(59,103,158); /* Old browsers */
+        background: -moz-linear-gradient(top,  rgba(59,103,158,1) 0%, rgba(43,136,217,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(59,103,158,1)), color-stop(50%,rgba(43,136,217,1)), color-stop(51%,rgba(32,124,202,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  rgba(59,103,158,1) 0%,rgba(43,136,217,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b679e', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+        color : white;
+      }
+      .tnt_tooltip_active {
+        opacity : .94 !important;
+        background-color : #eaeeff !important;
+      }
+    </style>
+    <link rel="stylesheet" href="../../build/index.css" type="text/css" />
     <div id="mytree"></div>
   </template>
   <script>
@@ -80,19 +95,26 @@
     Polymer("tnt-species-tree", {
       subtree : "All",
       layout : "Vertical",
-      width : 1600,
+      width : 1200,
       subtreeChanged : function () {
-         console.log(this.subtree);
+        var subtree_name = this.subtree;
+        var original_root = theme.original_root();
+        var subtree = original_root;
+        if (subtree_name !== "All") {
+          subtree = original_root.find_node (function (node) {
+           return node.node_name() === subtree_name;
+          });
+        }
+        tree_vis.data(subtree.data());
+        tree_vis.update();
       },
       layoutChanged : function () {
         switch (this.layout) {
            case 'Vertical' :
-              console.log("Changing layout to Vertical");
               tree_vis.layout(tnt.tree.layout.vertical().width(this.width).scale(false)).duration(1000);
               tree_vis.update();
               break;
            case 'Radial' :
-              console.log("Changing layout to Radial");
               tree_vis.layout(tnt.tree.layout.radial().width(this.width).scale(false)).duration(1000);
               tree_vis.update();
               break;
@@ -107,10 +129,13 @@
   </script>
 </polymer-element>
 
-<polymer-element name="ensembl-species-tree" noscript>
+<polymer-element name="ensembl-species-tree" attributes="subtrees width">
   <template>
-    <species-tree-toolbar layout="{{layout}}" subtree="{{subtree}}"></species-tree-toolbar>
-    <tnt-species-tree layout="{{layout}}" subtree="{{subtree}}"></tnt-species-tree>
+    <species-tree-toolbar layout="{{layout}}" subtree="{{subtree}}" subtrees="{{subtrees}}"></species-tree-toolbar>
+    <tnt-species-tree layout="{{layout}}" subtree="{{subtree}}" width="{{width}}"></tnt-species-tree>
   </template>
+  <script>
+    Polymer("ensembl-species-tree", {});
+  </script>
 </polymer-element>
 

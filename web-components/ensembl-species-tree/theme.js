@@ -1,6 +1,8 @@
 var tnt_theme = function () {
-    var mytheme = function (tree, div) {
 
+    var original_root;
+    
+    var mytheme = function (tree, div) {
 	// Labels
 	var image_label = tnt.tree.label.img()
             .src(function(node) {
@@ -28,21 +30,49 @@ var tnt_theme = function () {
             .add_label(image_label)
             .add_label(original_label);
 
+	// tooltip
+	var sp_tooltip = function (node) {
+	    var obj = {};
+	    obj.header = "Name : " + node.node_name();
+	    obj.rows = [];
+	    obj.rows.push({
+		label : "Ensembl Name",
+		value : species_info[node.node_name()]["ensembl_name"]
+	    });
+	    obj.rows.push({
+		label : "Taxon ID",
+		value : species_info[node.node_name()]["taxon_id"]
+	    });
+	    obj.rows.push({
+		label : "Species Homepage",
+		value : '<a href="/'+species_info[node.node_name()]['ensembl_name']+'/Info/Index" title="Click to go to species homepage">'+species_info[node.node_name()]['ensembl_name']+'</a>'
+	    });
+	    tnt.tooltip.table()
+		.width(180)
+		.call(this, obj);
+	};
 
 	tree
 	    .data(tnt.tree.parse_newick(ensembl_species_tree))
-	    .label(joined_label);
+	    .label(joined_label)
+	    .on_click(sp_tooltip);
 
+//	if (original_root === undefined) {
+	    original_root = tree.root();
+//	}
+	
 	// Display happens here 
 	tree(div);
     };
 
+    mytheme.original_root = function () {
+	return original_root;
+    };
+    
     return mytheme;
 };
 
 var ensembl_species_tree = "((((Ciona intestinalis:1,Ciona savignyi:1)Ciona:1,(((((((((Sarcophilus harrisii:1,Macropus eugenii:1)Marsupialia:1,Monodelphis domestica:1)Marsupialia:1,((((((((Rattus norvegicus:1,Mus musculus:1)Murinae:1,Dipodomys ordii:1)Sciurognathi:1,Ictidomys tridecemlineatus:1)Sciurognathi:1,Cavia porcellus:1)Rodentia:1,(Oryctolagus cuniculus:1,Ochotona princeps:1)Lagomorpha:1)Glires:1,(((Microcebus murinus:1,Otolemur garnettii:1)Strepsirrhini:1,(((((((Homo sapiens:1,Pan troglodytes:1)Homininae:1,Gorilla gorilla gorilla:1)Homininae:1,Pongo abelii:1)Hominidae:1,Nomascus leucogenys:1)Hominoidea:1,((Macaca mulatta:1,Papio anubis:1)Cercopithecinae:1,Chlorocebus sabaeus:1)Cercopithecinae:1)Catarrhini:1,Callithrix jacchus:1)Simiiformes:1,Tarsius syrichta:1)Haplorrhini:1)Primates:1,Tupaia belangeri:1)Euarchontoglires:1)Euarchontoglires:1,((Sorex araneus:1,Erinaceus europaeus:1)Insectivora:1,(((Myotis lucifugus:1,Pteropus vampyrus:1)Chiroptera:1,((((Mustela putorius furo:1,Ailuropoda melanoleuca:1)Caniformia:1,Canis lupus familiaris:1)Caniformia:1,Felis catus:1)Carnivora:1,Equus caballus:1)Laurasiatheria:1)Laurasiatheria:1,((((Ovis aries:1,Bos taurus:1)Bovidae:1,Tursiops truncatus:1)Cetartiodactyla:1,Vicugna pacos:1)Cetartiodactyla:1,Sus scrofa:1)Cetartiodactyla:1)Laurasiatheria:1)Laurasiatheria:1)Boreoeutheria:1,((Dasypus novemcinctus:1,Choloepus hoffmanni:1)Xenarthra:1,((Loxodonta africana:1,Procavia capensis:1)Afrotheria:1,Echinops telfairi:1)Afrotheria:1)Eutheria:1)Eutheria:1)Theria:1,Ornithorhynchus anatinus:1)Mammalia:1,((((Taeniopygia guttata:1,Ficedula albicollis:1)Passeriformes:1,((Gallus gallus:1,Meleagris gallopavo:1)Phasianidae:1,Anas platyrhynchos:1)Galloanserae:1)Neognathae:1,Pelodiscus sinensis:1)Testudines + Archosauria group:1,Anolis carolinensis:1)Sauria:1)Amniota:1,Xenopus tropicalis:1)Tetrapoda:1,Latimeria chalumnae:1)Sarcopterygii:1,(((Astyanax mexicanus:1,Danio rerio:1)Otophysa:1,((((((Xiphophorus maculatus:1,Poecilia formosa:1)Poeciliinae:1,Oryzias latipes:1)Atherinomorphae:1,Gasterosteus aculeatus:1)Percomorphaceae:1,Oreochromis niloticus:1)Percomorphaceae:1,(Takifugu rubripes:1,Tetraodon nigroviridis:1)Tetraodontidae:1)Percomorphaceae:1,Gadus morhua:1)Acanthomorphata:1)Clupeocephala:1,Lepisosteus oculatus:1)Neopterygii:1)Euteleostomi:1,Petromyzon marinus:1)Vertebrata:1)Chordata:1,(Caenorhabditis elegans:1,Drosophila melanogaster:1)Ecdysozoa:1)Bilateria:1,Saccharomyces cerevisiae:1):0;";
-
-
 
 var ncbi_species_tree = "(((((((((((((((Microcebus murinus:0.4,Otolemur garnettii:0.4)Strepsirrhini:0.1,((((((Homo sapiens:0.2,Pan troglodytes:0.2,Gorilla gorilla gorilla:0.3)Homininae:0.1,Pongo abelii:0.3)Hominidae:0.1,Nomascus leucogenys:0.3)Hominoidea:0.1,(Macaca mulatta:0.2,Papio anubis:0.2,Chlorocebus sabaeus:0.2)Cercopithecinae:0.3)Catarrhini:0.1,Callithrix jacchus:0.5)Simiiformes:0.1,Tarsius syrichta:0.4)Haplorrhini:0.1)Primates:0.1,((((Rattus norvegicus:0.2,Mus musculus:0.3)Murinae:0.3,Dipodomys ordii:0.4,Ictidomys tridecemlineatus:0.5)Sciurognathi:0.1,Cavia porcellus:0.4)Rodentia:0.1,(Oryctolagus cuniculus:0.3,Ochotona princeps:0.3)Lagomorpha:0.1)Glires:0.1,Tupaia belangeri:0.4)Euarchontoglires:0.1,((Erinaceus europaeus:0.4,Sorex araneus:0.4)Insectivora:0.1,((Ailuropoda melanoleuca:0.3,Canis lupus familiaris:0.4,Mustela putorius furo:0.5)Caniformia:0.1,Felis catus:0.5)Carnivora:0.1,(Myotis lucifugus:0.4,Pteropus vampyrus:0.5)Chiroptera:0.1,((Ovis aries:0.3,Bos taurus:0.3)Bovidae:0.3,Sus scrofa:0.4,Vicugna pacos:0.4,Tursiops truncatus:0.5)Cetartiodactyla:0.1,Equus caballus:0.5)Laurasiatheria:0.1)Boreoeutheria:0.1,(Dasypus novemcinctus:0.4,Choloepus hoffmanni:0.5)Xenarthra:0.1,(Loxodonta africana:0.4,Procavia capensis:0.4,Echinops telfairi:0.4)Afrotheria:0.1)Eutheria:0.1,(Macropus eugenii:0.4,Sarcophilus harrisii:0.4,Monodelphis domestica:0.5)Marsupialia:0.1)Theria:0.1,Ornithorhynchus anatinus:0.5)Mammalia:0.1,((((Ficedula albicollis:0.3,Taeniopygia guttata:0.5)Passeriformes:0.1,((Meleagris gallopavo:0.3,Gallus gallus:0.3)Phasianidae:0.2,Anas platyrhynchos:0.4)Galloanserae:0.1)Neognathae:0.7,Pelodiscus sinensis:0.6)Testudines + Archosauria group:0.1,Anolis carolinensis:1.1)Sauria:0.2)Amniota:0.1,Xenopus tropicalis:0.9)Tetrapoda:0.2,Latimeria chalumnae:0.5)Sarcopterygii:0.1,(((Danio rerio:0.6,Astyanax mexicanus:0.8)Otophysa:0.3,((((Takifugu rubripes:0.2,Tetraodon nigroviridis:0.2)Tetraodontidae:0.4,Gasterosteus aculeatus:0.6)Eupercaria:0.1,(((Poecilia formosa:0.2,Xiphophorus maculatus:0.2)Poeciliinae:0.4,Oryzias latipes:0.6)Atherinomorphae:0.1,Oreochromis niloticus:0.8)Ovalentaria:0.1)Percomorphaceae:0.2,Gadus morhua:0.8)Acanthomorphata:0.5)Clupeocephala:0.3,Lepisosteus oculatus:0.5)Neopterygii:0.3)Euteleostomi:0.3,Petromyzon marinus:0.6)Vertebrata:0.2,(Ciona intestinalis:0.1,Ciona savignyi:0.1)Ciona:0.6)Chordata:0.2,(Caenorhabditis elegans:0.8,Drosophila melanogaster:2.8)Ecdysozoa:0.2)Bilateria:0.3,Saccharomyces cerevisiae:1):0.1;"
 
