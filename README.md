@@ -9,11 +9,12 @@ Tree visualiation with TnT library.
 Building tnt.tree
 ------------------
 
+```
 ##### Building tnt.tree
 $ git clone https://github.com/emepyc/tnt.tree
 $ cd tnt.tree
 $ npm install
 $ gulp build-browser # gulp build-browser-min
-
+```
 The generated javascript and css files will be at ./build
 
