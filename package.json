@@ -1,6 +1,6 @@
 {
   "name": "tnt.tree",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "TnT tree display",
   "main": "index.js",
   "directories": {
@@ -61,7 +61,9 @@
     }
   },
   "dependencies": {
-    "blanket": "^1.1.6",
-    "underscore": "^1.7.0"
+      "tnt.tree.node": "^0.0.0",
+      "tnt.utils": "^0.0.0",
+      "tnt.tooltip": "^0.0.0",
+      "tnt.newick": "^0.0.2"
   }
 }
