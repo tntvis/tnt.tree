@@ -172,14 +172,20 @@ tnt.tree = function () {
 
 	new_node.on("click", function (node) {
 	    conf.on_click.call(this, tnt.tree.node(node));
+
+		tnt.trigger("node:click",node);
 	});
 
 	new_node.on("mouseenter", function (node) {
 	    conf.on_mouseover.call(this, tnt.tree.node(node));
+
+		tnt.trigger("node:hover",node);
 	});
 
 	new_node.on("dblclick", function (node) {
 	    conf.on_dbl_click.call(this, tnt.tree.node(node));
+
+		tnt.trigger("node:dblclick",node);
 	});
 
 
@@ -285,14 +291,20 @@ tnt.tree = function () {
 
 	    new_node.on("click", function (node) {
 		conf.on_click.call(this, tnt.tree.node(node));
+
+		tnt.trigger("node:click",node);
 	    });
 
 	    new_node.on("mouseenter", function (node) {
 		conf.on_mouseover.call(this, tnt.tree.node(node));
+
+		tnt.trigger("node:hover",node);
 	    });
 
 	    new_node.on("dblclick", function (node) {
 		conf.on_dbl_click.call(this, tnt.tree.node(node));
+
+		tnt.trigger("node:dblclick",node);
 	    });
 
 
@@ -336,6 +348,9 @@ tnt.tree = function () {
 	var newtree = tnt.tree.node(base.data);
 
 	tree.root(newtree);
+
+	tnt.trigger("data:change", base.data);
+
 	return tree;
     });
 

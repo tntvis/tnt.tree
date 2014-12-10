@@ -27,12 +27,19 @@
     "url": "https://github.com/emepyc/tnt.tree/issues"
   },
   "homepage": "https://github.com/emepyc/tnt.tree",
-  "sniper" : {
-        "js" : ["http://d3js.org/d3.v3.min.js", "./build/tnt.tree.min.js"],
-        "css" : ["./build/index.css"],
-        "snippets" : ["snippets"],
-        "first" : "layout"
-    }, 
+  "sniper": {
+    "js": [
+      "http://d3js.org/d3.v3.min.js",
+      "/build/tnt.tree.min.js"
+    ],
+    "css": [
+      "/build/index.css"
+    ],
+    "snippets": [
+      "snippets"
+    ],
+    "first": "layout"
+  },
   "devDependencies": {
     "blanket": "^1.1.6",
     "browserify": "~4.2.0",
@@ -68,10 +75,11 @@
     }
   },
   "dependencies": {
-      "tnt.tree.node": "^0.0.0",
-      "tnt.utils": "^0.0.0",
-      "tnt.tooltip": "^0.0.3",
-      "tnt.newick": "^0.0.2",
-      "tnt.api": "^0.0.0"
+    "biojs-events": "0.0.4",
+    "tnt.api": "^0.0.0",
+    "tnt.newick": "^0.0.2",
+    "tnt.tooltip": "^0.0.3",
+    "tnt.tree.node": "^0.0.0",
+    "tnt.utils": "^0.0.0"
   }
 }
