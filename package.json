@@ -1,13 +1,14 @@
 {
   "name": "tnt.tree",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "TnT tree display",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --require blanket --reporter mocha-lcov-reporter > coverage/lcov.info && gulp test && gulp coveralls"
+    "test": "./node_modules/.bin/mocha --require blanket --reporter mocha-lcov-reporter > coverage/lcov.info && gulp test && gulp coveralls",
+    "prepublish": "gulp test && gulp build-browser-min"
   },
   "repository": {
     "type": "git",
@@ -27,8 +28,8 @@
   },
   "homepage": "https://github.com/emepyc/tnt.tree",
   "sniper" : {
-        "js" : ["http://d3js.org/d3.v3.min.js", "../build/tnt.tree.js"],
-        "css" : ["../build/index.css"],
+        "js" : ["http://d3js.org/d3.v3.min.js", "/build/tnt.tree.min.js"],
+        "css" : ["/build/index.css"],
         "snippets" : ["snippets"],
         "first" : "layout"
     }, 
@@ -63,13 +64,13 @@
       "data-cover-never": "node_modules"
     },
     "travis-cov": {
-      "threshold": 60
+      "threshold": 0
     }
   },
   "dependencies": {
       "tnt.tree.node": "^0.0.0",
       "tnt.utils": "^0.0.0",
-      "tnt.tooltip": "^0.0.1",
+      "tnt.tooltip": "^0.0.3",
       "tnt.newick": "^0.0.2",
       "tnt.api": "^0.0.0"
   }
