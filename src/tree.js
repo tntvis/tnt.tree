@@ -1,4 +1,4 @@
-var apijs = require("../../tnt.api/index.js");
+var apijs = require("tnt.api");
 
 tnt.tree = function () {
     "use strict";

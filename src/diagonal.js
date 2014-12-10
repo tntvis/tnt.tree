@@ -1,4 +1,4 @@
-var apijs = require('../../tnt.api/index.js');
+var apijs = require('tnt.api');
 var tree = {};
 
 tree.diagonal = function () {
