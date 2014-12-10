@@ -1,6 +1,6 @@
 {
   "name": "tnt.tree",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "TnT tree display",
   "main": "index.js",
   "directories": {
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/emepyc/tnt.tree",
   "sniper" : {
-        "js" : ["http://d3js.org/d3.v3.min.js", "/build/tnt.tree.min.js"],
-        "css" : ["/build/index.css"],
+        "js" : ["http://d3js.org/d3.v3.min.js", "./build/tnt.tree.min.js"],
+        "css" : ["./build/index.css"],
         "snippets" : ["snippets"],
         "first" : "layout"
     }, 
