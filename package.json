@@ -30,10 +30,10 @@
   "sniper": {
     "js": [
       "http://d3js.org/d3.v3.min.js",
-      "/build/tnt.tree.min.js"
+      "./build/tnt.tree.min.js"
     ],
     "css": [
-      "/build/index.css"
+      "./build/index.css"
     ],
     "snippets": [
       "snippets"
