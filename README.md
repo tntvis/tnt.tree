@@ -5,7 +5,7 @@
 tnt.tree
 =========
 Tree visualiation with TnT library.
-Full documentation can be found [here](emepyc.github.io/tnt)
+Full documentation can be found [here](http://emepyc.github.io/tnt)
 
 Building tnt.tree
 ------------------
