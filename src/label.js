@@ -180,11 +180,11 @@ tree.label.composite = function () {
 	}
     };
 
-    var api = tnt.utils.api (label)
+    var api = apijs (label)
 
     api.method ('add_label', function (display, node) {
 	display._super_ = {};
-	tnt.utils.api (display._super_)
+	apijs (display._super_)
 	    .get ('transform', display.transform());
 
 	labels.push(display);
