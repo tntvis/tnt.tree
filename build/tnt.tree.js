@@ -12082,13 +12082,13 @@ module.exports = exports = tnt_node;
 
 },{"tnt.api":11,"tnt.utils":18}],23:[function(require,module,exports){
 module.exports=require(18)
-},{"./src/index.js":24,"/Users/David/Desktop/tnt.tree/node_modules/tnt.tree.node/node_modules/tnt.utils/index.js":18}],24:[function(require,module,exports){
+},{"./src/index.js":24,"/Users/David/tnt.tree/node_modules/tnt.tree.node/node_modules/tnt.utils/index.js":18}],24:[function(require,module,exports){
 module.exports=require(19)
-},{"./reduce.js":25,"./utils.js":26,"/Users/David/Desktop/tnt.tree/node_modules/tnt.tree.node/node_modules/tnt.utils/src/index.js":19}],25:[function(require,module,exports){
+},{"./reduce.js":25,"./utils.js":26,"/Users/David/tnt.tree/node_modules/tnt.tree.node/node_modules/tnt.utils/src/index.js":19}],25:[function(require,module,exports){
 module.exports=require(20)
-},{"/Users/David/Desktop/tnt.tree/node_modules/tnt.tree.node/node_modules/tnt.utils/src/reduce.js":20}],26:[function(require,module,exports){
+},{"/Users/David/tnt.tree/node_modules/tnt.tree.node/node_modules/tnt.utils/src/reduce.js":20}],26:[function(require,module,exports){
 module.exports=require(21)
-},{"/Users/David/Desktop/tnt.tree/node_modules/tnt.tree.node/node_modules/tnt.utils/src/utils.js":21}],"tnt.tree":[function(require,module,exports){
+},{"/Users/David/tnt.tree/node_modules/tnt.tree.node/node_modules/tnt.utils/src/utils.js":21}],"tnt.tree":[function(require,module,exports){
 if (typeof tnt === "undefined") {
     module.exports = tnt = {}
 }

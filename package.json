@@ -30,7 +30,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha test/test.js",
-    "build": "mkdirp build && scss lib/index.scss > build/index.css && browserify -r ./:tnt.tree -o build/tnt.tree.js",
+    "build": "mkdirp build && browserify -r ./:tnt.tree -o build/tnt.tree.js",
     "build-browser": "npm run build",
     "prepublish": "npm run build",
     "watch": "watchify -r ./:tnttree -v -o build/tnt.tree.js",
