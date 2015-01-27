@@ -1,3 +1,5 @@
+var tnt = require("tnt.tree");
+
 d3.selection.prototype.selectAncestor = function(type) {
 
     type = type.toLowerCase();
@@ -16,8 +18,6 @@ d3.selection.prototype.selectAncestor = function(type) {
 	return d3.select(selfNode.parentNode).selectAncestor(type);
     }
 };
-
-var tnt = require("tnt.tree");
 
 var theme = function() {
     "use strict";
