@@ -1,4 +1,12 @@
-var tnt = require ("../index.js");
+/*
+ * tnttree
+ * https://github.com/emepyc/tnttree
+ *
+ * Copyright (c) 2014 Miguel Pignatelli
+ * Licensed under the Apache 2 license.
+ */
+
+var tnt = require("../build/tnt.tree");
 var assert = require("chai").assert;
 
 describe ('TnT tree', function () {

@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="../../build/index.css" type="text/css" />
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="../../build/tnt.tree.min.js"></script>
+<script src="../../build/tnt.tree.js"></script>
 <script src="theme.js"></script>
 
 <polymer-element name="tnt-tree" attributes="newick scale">
@@ -22,6 +22,7 @@
   <script>
     Polymer({
       ready : function() {
+        var tnt = require("tnt.tree");
         var tree_vis = tnt.tree()
           .data(tnt.tree.parse_newick(this.attributes.newick.value));
         var theme = tnt_theme()
