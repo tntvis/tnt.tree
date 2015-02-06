@@ -377,8 +377,10 @@ tnt.tree = function () {
 
     api.method ('focus_node', function (node) {
 	// find 
-	var found_node = tree.root().find_node_by_field(node.id(), '_id');
-	focused_node = found_node
+	var found_node = tree.root().find_node(function (n) {
+	    return node.id() === n.id();
+	});
+	focused_node = found_node;
 	tree.subtree(found_node.get_all_leaves());
 
 	return tree;

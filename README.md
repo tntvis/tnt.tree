@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/emepyc/tnt.tree.svg?branch=master)](https://travis-ci.org/emepyc/tnt.tree)
-[![Coverage Status](https://coveralls.io/repos/emepyc/tnt.tree/badge.png)](https://coveralls.io/r/emepyc/tnt.tree)
 [![npm version](https://badge.fury.io/js/tnt.tree.svg)](http://badge.fury.io/js/tnt.tree)
 
 tnt.tree
