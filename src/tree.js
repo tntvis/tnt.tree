@@ -1,13 +1,14 @@
 var apijs = require("tnt.api");
+var tnt_tree_node = require("tnt.tree.node");
 
-tnt.tree = function () {
+var tree = function () {
     "use strict";
 
     var conf = {
 	duration         : 500,      // Duration of the transitions
-	node_display     : tnt.tree.node_display.circle(),
-	label            : tnt.tree.label.text(),
-	layout           : tnt.tree.layout.vertical(),
+	node_display     : tree.node_display.circle(),
+	label            : tree.label.text(),
+	layout           : tree.layout.vertical(),
 	on_click         : function () {},
 	on_dbl_click     : function () {},
 	on_mouseover     : function () {},
@@ -58,7 +59,7 @@ tnt.tree = function () {
     };
 
     // The cbak returned
-    var tree = function (div) {
+    var t = function (div) {
 	div_id = d3.select(div).attr("id");
 
         var tree_div = d3.select(div)
@@ -74,7 +75,7 @@ tnt.tree = function () {
 	    var max = 0;
 	    var leaves = tree.get_all_leaves();
 	    for (var i=0; i<leaves.length; i++) {
-		var label_width = conf.label.width()(leaves[i]);
+		var label_width = conf.label.width()(leaves[i]) + d3.functor(conf.node_display.size())(leaves[i]);
 		if (label_width > max) {
 		    max = label_width;
 		}
@@ -82,16 +83,29 @@ tnt.tree = function () {
 	    return max;
 	};
 
+	var max_leaf_node_height = function (tree) {
+	    var max = 0;
+	    var leaves = tree.get_all_leaves();
+	    for (var i=0; i<leaves.length; i++) {
+		var node_size = d3.functor(conf.node_display.size())(leaves[i]);
+		if (node_size > max) {
+		    max = node_size;
+		}
+	    }
+	    return max * 2;
+	};
 
 	var max_label_length = max_leaf_label_length(curr.tree);
 	conf.layout.max_leaf_label_width(max_label_length);
+
+	var max_node_height = max_leaf_node_height(curr.tree);
 
 	// Cluster size is the result of...
 	// total width of the vis - transform for the tree - max_leaf_label_width - horizontal transform of the label
 	// TODO: Substitute 15 by the horizontal transform of the nodes
 	var cluster_size_params = {
 	    n_leaves : n_leaves,
-	    label_height : d3.functor(conf.label.height())(),
+	    label_height : d3.max([d3.functor(conf.label.height())(), max_node_height]),
 	    label_padding : 15
 	};
 
@@ -132,7 +146,7 @@ tnt.tree = function () {
 	    	return "tnt_tree_link_" + div_id + "_" + d.target._id;
 	    })
 	    .style("stroke", function (d) {
-		return d3.functor(conf.link_color)(tnt.tree.node(d.source), tnt.tree.node(d.target));
+		return d3.functor(conf.link_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
 	    })
 	    .attr("d", diagonal);	    
 
@@ -161,31 +175,31 @@ tnt.tree = function () {
 	// display node shape
 	new_node
 	    .each (function (d) {
-		conf.node_display.call(this, tnt.tree.node(d))
+		conf.node_display.call(this, tnt_tree_node(d))
 	    });
 
 	// display node label
 	new_node
 	    .each (function (d) {
-	    	conf.label.call(this, tnt.tree.node(d), conf.layout.type);
+	    	conf.label.call(this, tnt_tree_node(d), conf.layout.type, d3.functor(conf.node_display.size())(tnt_tree_node(d)));
 	    });
 
 	new_node.on("click", function (node) {
-	    conf.on_click.call(this, tnt.tree.node(node));
+	    conf.on_click.call(this, tnt_tree_node(node));
 
-		tnt.trigger("node:click",tnt.tree.node(node));
+	    tree.trigger("node:click", tnt_tree_node(node));
 	});
 
 	new_node.on("mouseenter", function (node) {
-	    conf.on_mouseover.call(this, tnt.tree.node(node));
+	    conf.on_mouseover.call(this, tnt_tree_node(node));
 
-		tnt.trigger("node:hover",tnt.tree.node(node));
+	    tree.trigger("node:hover", tnt_tree_node(node));
 	});
 
 	new_node.on("dblclick", function (node) {
-	    conf.on_dbl_click.call(this, tnt.tree.node(node));
+	    conf.on_dbl_click.call(this, tnt_tree_node(node));
 
-		tnt.trigger("node:dblclick",tnt.tree.node(node));
+	    tree.trigger("node:dblclick", tnt_tree_node(node));
 	});
 
 
@@ -202,13 +216,15 @@ tnt.tree = function () {
 	    var max_label_length = max_leaf_label_length(curr.tree);
 	    conf.layout.max_leaf_label_width(max_label_length);
 
+	    var max_node_height = max_leaf_node_height(curr.tree);
+
 	    // Cluster size is the result of...
 	    // total width of the vis - transform for the tree - max_leaf_label_width - horizontal transform of the label
 	// TODO: Substitute 15 by the transform of the nodes (probably by selecting one node assuming all the nodes have the same transform
 	    var n_leaves = curr.tree.get_all_leaves().length;
 	    var cluster_size_params = {
 		n_leaves : n_leaves,
-		label_height : d3.functor(conf.label.height())(),
+		label_height : d3.max([d3.functor(conf.label.height())()]),
 		label_padding : 15
 	    };
 	    conf.layout.adjust_cluster_size(cluster_size_params);
@@ -253,7 +269,7 @@ tnt.tree = function () {
 		    return "tnt_tree_link_" + div_id + "_" + d.target._id;
 		})
 		.attr("stroke", function (d) {
-		    return d3.functor(conf.link_color)(tnt.tree.node(d.source), tnt.tree.node(d.target));
+		    return d3.functor(conf.link_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
 		})
 		.attr("d", diagonal);
 
@@ -290,21 +306,21 @@ tnt.tree = function () {
 		.remove();
 
 	    new_node.on("click", function (node) {
-		conf.on_click.call(this, tnt.tree.node(node));
+		conf.on_click.call(this, tnt_tree_node(node));
 
-		tnt.trigger("node:click",tnt.tree.node(node));
+		tree.trigger("node:click", tnt_tree_node(node));
 	    });
 
 	    new_node.on("mouseenter", function (node) {
-		conf.on_mouseover.call(this, tnt.tree.node(node));
+		conf.on_mouseover.call(this, tnt_tree_node(node));
 
-		tnt.trigger("node:hover",tnt.tree.node(node));
+		tree.trigger("node:hover", tnt_tree_node(node));
 	    });
 
 	    new_node.on("dblclick", function (node) {
-		conf.on_dbl_click.call(this, tnt.tree.node(node));
+		conf.on_dbl_click.call(this, tnt_tree_node(node));
 
-		tnt.trigger("node:dblclick",tnt.tree.node(node));
+		tree.trigger("node:dblclick", tnt_tree_node(node));
 	    });
 
 
@@ -312,13 +328,13 @@ tnt.tree = function () {
 	    node.selectAll("*").remove();
 	    node
 		    .each(function (d) {
-			conf.node_display.call(this, tnt.tree.node(d))
+			conf.node_display.call(this, tnt_tree_node(d))
 		    });
 
 	    // We need to re-create all the labels again in case they have changed lively (or the layout)
 	    node
 		    .each (function (d) {
-			conf.label.call(this, tnt.tree.node(d), conf.layout.type);
+			conf.label.call(this, tnt_tree_node(d), conf.layout.type);
 		    });
 
 	    node
@@ -331,7 +347,7 @@ tnt.tree = function () {
     };
 
     // API
-    var api = apijs (tree)
+    var api = apijs (t)
 	.getset (conf)
 
     // TODO: Rewrite data using getset / finalizers & transforms
@@ -345,26 +361,26 @@ tnt.tree = function () {
 	curr.data = d;
 
 	// Set up a new tree based on the data
-	var newtree = tnt.tree.node(base.data);
+	var newtree = tnt_tree_node(base.data);
 
-	tree.root(newtree);
+	t.root(newtree);
 
-	tnt.trigger("data:hasChanged", base.data);
+	tree.trigger("data:hasChanged", base.data);
 
-	return tree;
+	return this;
     });
 
     // TODO: Rewrite tree using getset / finalizers & transforms
-    api.method ('root', function (t) {
+    api.method ('root', function (myTree) {
     	if (!arguments.length) {
     	    return curr.tree;
     	}
 
 	// The original tree is stored as the base, prev and curr tree
-    	base.tree = t;
+    	base.tree = myTree;
 	curr.tree = base.tree;
 //	prev.tree = base.tree;
-    	return tree;
+    	return this;
     });
 
     api.method ('subtree', function (curr_nodes) {
@@ -372,18 +388,18 @@ tnt.tree = function () {
 	curr.data = subtree.data();
 	curr.tree = subtree;
 
-	return tree;
+	return this;
     });
 
     api.method ('focus_node', function (node) {
 	// find 
-	var found_node = tree.root().find_node(function (n) {
+	var found_node = t.root().find_node(function (n) {
 	    return node.id() === n.id();
 	});
 	focused_node = found_node;
-	tree.subtree(found_node.get_all_leaves());
+	t.subtree(found_node.get_all_leaves());
 
-	return tree;
+	return this;
     });
 
     api.method ('has_focus', function (node) {
@@ -391,44 +407,12 @@ tnt.tree = function () {
     });
 
     api.method ('release_focus', function () {
-	tree.data (base.data);
+	t.data (base.data);
 	focused_node = undefined;
-	return tree;
+	return this;
     });
 
-
-    // api.method ('tooltip', function () {
-    // 	// var tooltip = tnt.tooltip().type("table");
-    // 	var tree_tooltip = function (node) {
-    // 	    node = node.data();
-    // 	    var obj = {};
-    // 	    obj.header = "Name: " + node.name;
-    // 	    obj.rows = [];
-    // 	    obj.rows.push({
-    // 		label : "_id",
-    // 		value : node._id
-    // 	    });
-    // 	    obj.rows.push({
-    // 		label : "Depth",
-    // 		value : node.depth
-    // 	    });
-    // 	    obj.rows.push({
-    // 		label : "Length",
-    // 		value : node.branch_length
-    // 	    });
-    // 	    obj.rows.push({
-    // 		label : "N.Children",
-    // 		value : node.children ? node.children.length : 0
-    // 	    });
-	    
-    // 	    tnt.tooltip.table()
-    // 		.call(this, obj);
-    // 	};
-
-    // 	return tree_tooltip;
-    // });
-
-    return tree;
+    return t;
 };
 
-module.exports = exports = tnt.tree;
+module.exports = exports = tree;

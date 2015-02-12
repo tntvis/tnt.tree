@@ -1,1 +1,1 @@
-module.exports = require("./index.js");
+module.exports = tnt_tree = require("./index.js");

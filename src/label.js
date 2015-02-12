@@ -9,7 +9,7 @@ tree.label = function () {
     // on update
     // We also have the problem that we may be transitioning from
     // text to img labels and we need to remove the label of a different type
-    var label = function (node, layout_type) {
+    var label = function (node, layout_type, node_size) {
 	if (typeof (node) !== 'function') {
             throw(node);
         }
@@ -18,7 +18,7 @@ tree.label = function () {
 	    .attr("class", "tnt_tree_label")
 	    .attr("transform", function (d) {
 		var t = label.transform()(node, layout_type);
-		return "translate (" + t.translate[0] + " " + t.translate[1] + ")rotate(" + t.rotate + ")";
+		return "translate (" + (t.translate[0] + node_size) + " " + t.translate[1] + ")rotate(" + t.rotate + ")";
 	    })
 	// TODO: this click event is probably never fired since there is an onclick event in the node g element?
 	    .on("click", function(){
@@ -27,7 +27,6 @@ tree.label = function () {
 		    label.on_click().call(this, node);
 		}
 	    });
-
     };
 
     var api = apijs (label)
@@ -72,7 +71,7 @@ tree.label.text = function () {
     label.transform (function (node, layout_type) {
 	var d = node.data();
 	var t = {
-	    translate : [10, 5],
+	    translate : [5, 5],
 	    rotate : 0
 	};
 	if (layout_type === "radial") {

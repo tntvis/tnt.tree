@@ -12,9 +12,8 @@ tree.layout = function () {
     var cluster = d3.layout.cluster()
 	.sort(null)
 	.value(function (d) {return d.length} )
-	// .children(function (d) {return d.branchset})
 	.separation(function () {return 1});
-
+    
     var api = apijs (l)
 	.getset ('scale', true)
 	.getset ('max_leaf_label_width', 0)
@@ -114,7 +113,7 @@ tree.layout.radial = function () {
     });
 
     api.method ("adjust_cluster_size", function (params) {
-	var r = (layout.width()/2) - layout.max_leaf_label_width() - 20
+	r = (layout.width()/2) - layout.max_leaf_label_width() - 20;
 	layout.cluster.size([360, r]);
 	return layout;
     });
