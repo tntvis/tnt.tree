@@ -4,4 +4,6 @@
 0.0.15
    - Bugfix : focus_node was calling find_node_by_field instead of find_node
    - Not showing test coverage badge in README
+   - Height is now calculated based on both nodes and labels
+   - Bugfix : Labels now offset the width of the nodes
    
