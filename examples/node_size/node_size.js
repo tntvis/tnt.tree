@@ -15,15 +15,15 @@ var tnt_theme_tree_node_size = function () {
 	};
 
 	tree_vis
-	    .data(tnt_tree.parse_newick(newick))
-	    .node_display(tnt_tree.node_display.circle()
+	    .data(tnt.tree.parse_newick(newick))
+	    .node_display(tnt.tree.node_display.circle()
 	    		  .size(node_size)
 	    		  .fill("white"))
-	    .layout(tnt_tree.layout.vertical()
+	    .layout(tnt.tree.layout.vertical()
 		    .width(700)
 		    .scale(true)
 		   )
-	    .label(tnt_tree.label.text()
+	    .label(tnt.tree.label.text()
 	    	   .text(function (node) {
 	    	       return node.node_name();
 	    	   })

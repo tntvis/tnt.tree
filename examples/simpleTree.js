@@ -4,9 +4,9 @@ var theme = function() {
     var _ = function (tree_vis, div) {
 
 	tree_vis
-	    .data(tnt_tree.parse_newick(newick))
+	    .data(tnt.tree.parse_newick(newick))
 	    .node_display(tree_vis.node_display().size(4).fill("orange"))
-	    .layout(tnt_tree.layout.vertical()
+	    .layout(tnt.tree.layout.vertical()
 		    .width(650)
 		    .scale(false)
 		   );
