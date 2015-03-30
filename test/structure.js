@@ -7,10 +7,10 @@ describe ('Tree', function () {
 	assert.isFunction(tree);
     });
 
-    it ("Has nodes", function () {
-	assert.isDefined(tree.node);
-	assert.isFunction(tree.node);
-    });
+    // it ("Has nodes", function () {
+    // 	assert.isDefined(tree.node);
+    // 	assert.isFunction(tree.node);
+    // });
 
     it ("Has node displays", function () {
 	assert.isDefined(tree.node_display);
@@ -32,15 +32,15 @@ describe ('Tree', function () {
 	assert.isFunction(tree.layout);
     });
 
-    it ("Has parse_newick", function () {
-	assert.isDefined(tree.parse_newick);
-	assert.isFunction(tree.parse_newick);
-    });
+    // it ("Has parse_newick", function () {
+    // 	assert.isDefined(tree.parse_newick);
+    // 	assert.isFunction(tree.parse_newick);
+    // });
 
-    it ("Has parse_nhx", function () {
-	assert.isDefined(tree.parse_nhx);
-	assert.isFunction(tree.parse_nhx);
-    });
+    // it ("Has parse_nhx", function () {
+    // 	assert.isDefined(tree.parse_nhx);
+    // 	assert.isFunction(tree.parse_nhx);
+    // });
 
     // it ("Has tnt utils", function () {
     // 	assert.isDefined(tnt.utils);

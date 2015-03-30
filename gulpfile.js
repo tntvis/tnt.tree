@@ -27,10 +27,10 @@ var outputFile = packageConfig.name;
 var outputFileSt = outputFile + ".js";
 var outputFilePath = join(buildDir,outputFileSt);
 var outputFileMinSt = outputFile + ".min.js";
-var outputFileMin = join(buildDir,outputFileMinSt);
+var outputFileMinPath = join(buildDir,outputFileMinSt);
 
 // a failing test breaks the whole build chain
-gulp.task('default', ['lint', 'test', 'build-browser', 'build-browser-gzip']);
+gulp.task('default', ['lint', 'test', 'build-all']);
 
 
 gulp.task('lint', function() {
@@ -46,7 +46,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['./src/**/*.js','./lib/**/*.js', './test/**/*.js'], ['build-browser', 'lint', 'test']);
+    gulp.watch(['./src/**/*.js','./lib/**/*.js', './test/**/*.js'], ['build-all', 'lint', 'test']);
 });
 
 
@@ -78,19 +78,20 @@ gulp.task('build-browser',['init', 'sass'], function() {
 });
 
 // browserify min
-gulp.task('build-browser-min',['init', 'sass'], function() {
-  return gulp.src(browserFile)
-  .pipe(browserify({}))
+gulp.task('build-browser-min',['build-browser'], function() {
+  return gulp.src(outputFilePath)
   .pipe(uglify())
   .pipe(rename(outputFileMinSt))
   .pipe(gulp.dest(buildDir));
 });
  
 gulp.task('build-browser-gzip', ['build-browser-min'], function() {
-  return gulp.src(outputFileMin)
+  return gulp.src(outputFileMinPath)
     .pipe(gzip({append: false, gzipOptions: { level: 9 }}))
     .pipe(rename(outputFile + ".min.gz.js"))
     .pipe(gulp.dest(buildDir));
 });
+
+gulp.task('build-all', ['build-browser-gzip']);
 
 
