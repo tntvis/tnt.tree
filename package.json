@@ -1,6 +1,6 @@
 {
   "name": "tnt.tree",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "TnT tree display",
   "main": "index.js",
   "directories": {
@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "biojs-events": "0.0.4",
-    "tnt.api": "^0.0.0"
+    "tnt.api": "^0.0.0",
+    "tnt.tree.node": "0.0.2"
   }
 }
