@@ -249,13 +249,13 @@ var tree = function () {
 	    conf.layout.scale_branch_lengths(curr);
 	    curr.links = cluster.links(curr.nodes);
 
-            // NODES
-	    var node = vis.selectAll("g.tnt_tree_node")
-		.data(curr.nodes, function(d) {return d[conf.id]});
-
 	    // LINKS
 	    var link = vis.selectAll("path.tnt_tree_link")
 		.data(curr.links, function(d){return d.target[conf.id]});
+
+            // NODES
+	    var node = vis.selectAll("g.tnt_tree_node")
+		.data(curr.nodes, function(d) {return d[conf.id]});
 
 	    var exit_link = link
 		.exit()
@@ -334,7 +334,7 @@ var tree = function () {
 	    // We need to re-create all the labels again in case they have changed lively (or the layout)
 	    node
 		    .each (function (d) {
-			conf.label.call(this, tnt_tree_node(d), conf.layout.type);
+			conf.label.call(this, tnt_tree_node(d), conf.layout.type, d3.functor(conf.node_display.size())(tnt_tree_node(d)));
 		    });
 
 	    node
