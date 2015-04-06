@@ -8,3 +8,5 @@
    - Bugfix : Labels now offset the width of the nodes
    - Cleaned dependencies
 
+0.0.16
+   - Bugfix : New links doesn't appear over old nodes

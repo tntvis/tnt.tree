@@ -37,6 +37,8 @@ var tree = function () {
     // The tree visualization (svg)
     var svg;
     var vis;
+    var links_g;
+    var nodes_g;
 
     // TODO: For now, counts are given only for leaves
     // but it may be good to allow counts for internal nodes
@@ -135,7 +137,17 @@ var tree = function () {
 	curr.links = cluster.links(curr.nodes);
 
 	// LINKS
-	var link = vis.selectAll("path.tnt_tree_link")
+	// All the links are grouped in a g element
+	links_g = vis
+	    .append("g")
+	    .attr("class", "links");
+	nodes_g = vis
+	    .append("g")
+	    .attr("class", "nodes");
+	
+	//var link = vis
+	var link = links_g
+	    .selectAll("path.tnt_tree_link")
 	    .data(curr.links, function(d){return d.target[conf.id]});
 	
 	link
@@ -151,7 +163,9 @@ var tree = function () {
 	    .attr("d", diagonal);	    
 
 	// NODES
-	var node = vis.selectAll("g.tnt_tree_node")
+	//var node = vis
+	var node = nodes_g
+	    .selectAll("g.tnt_tree_node")
 	    .data(curr.nodes, function(d) {return d[conf.id]});
 
 	var new_node = node
@@ -250,11 +264,13 @@ var tree = function () {
 	    curr.links = cluster.links(curr.nodes);
 
 	    // LINKS
-	    var link = vis.selectAll("path.tnt_tree_link")
+	    var link = links_g
+		.selectAll("path.tnt_tree_link")
 		.data(curr.links, function(d){return d.target[conf.id]});
 
             // NODES
-	    var node = vis.selectAll("g.tnt_tree_node")
+	    var node = nodes_g
+		.selectAll("g.tnt_tree_node")
 		.data(curr.nodes, function(d) {return d[conf.id]});
 
 	    var exit_link = link
