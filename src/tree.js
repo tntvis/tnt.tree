@@ -12,7 +12,7 @@ var tree = function () {
 	on_click         : function () {},
 	on_dbl_click     : function () {},
 	on_mouseover     : function () {},
-	link_color       : 'black',
+	branch_color       : 'black',
 	id               : "_id"
     };
 
@@ -158,7 +158,7 @@ var tree = function () {
 	    	return "tnt_tree_link_" + div_id + "_" + d.target._id;
 	    })
 	    .style("stroke", function (d) {
-		return d3.functor(conf.link_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
+		return d3.functor(conf.branch_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
 	    })
 	    .attr("d", diagonal);	    
 
@@ -285,7 +285,7 @@ var tree = function () {
 		    return "tnt_tree_link_" + div_id + "_" + d.target._id;
 		})
 		.attr("stroke", function (d) {
-		    return d3.functor(conf.link_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
+		    return d3.functor(conf.branch_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
 		})
 		.attr("d", diagonal);
 
