@@ -63,6 +63,6 @@
     "biojs-events": "0.0.4",
     "tnt.api": "^0.0.0",
     "tnt.newick": "0.0.3",
-    "tnt.tree.node": "0.0.2"
+    "tnt.tree.node": "0.0.3"
   }
 }
