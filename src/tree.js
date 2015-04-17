@@ -399,8 +399,8 @@ var tree = function () {
     	return this;
     });
 
-    api.method ('subtree', function (curr_nodes) {
-	var subtree = base.tree.subtree(curr_nodes);
+    api.method ('subtree', function (curr_nodes, keepSingletons) {
+	var subtree = base.tree.subtree(curr_nodes, keepSingletons);
 	curr.data = subtree.data();
 	curr.tree = subtree;
 
