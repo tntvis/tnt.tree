@@ -11,3 +11,4 @@
 0.0.16
    - Bugfix : New links doesn't appear over old nodes
    - link_color renamed branch_color
+   - focus_node now accepts a keepSingleton second argument to pass to tnt.tree.node's subtree

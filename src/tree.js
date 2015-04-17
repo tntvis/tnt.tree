@@ -407,13 +407,13 @@ var tree = function () {
 	return this;
     });
 
-    api.method ('focus_node', function (node) {
+    api.method ('focus_node', function (node, keepSingletons) {
 	// find 
 	var found_node = t.root().find_node(function (n) {
 	    return node.id() === n.id();
 	});
 	focused_node = found_node;
-	t.subtree(found_node.get_all_leaves());
+	t.subtree(found_node.get_all_leaves(), keepSingletons);
 
 	return this;
     });
