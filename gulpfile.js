@@ -65,7 +65,9 @@ gulp.task('init', ['clean'], function() {
 // sass-import
 gulp.task('sass', function () {
     return gulp.src("index.scss")
-	.pipe(sass())
+	.pipe(sass({
+	    errLogToConsole: true
+	}))
 	.pipe(gulp.dest(buildDir));
 });
 
