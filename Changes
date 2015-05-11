@@ -18,3 +18,6 @@
 
 0.0.18
    - tnt.tree's subtree now propagates keepSingletons option to tnt.tree.node
+
+0.0.19
+   - gulp sass now logs to console
