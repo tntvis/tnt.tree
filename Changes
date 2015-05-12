@@ -21,3 +21,4 @@
 
 0.0.19
    - gulp sass now logs to console
+   - Bugfix: the maximum height of the node was not taken into account when calculating the layout height in the update method

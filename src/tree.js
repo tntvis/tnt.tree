@@ -238,7 +238,7 @@ var tree = function () {
 	    var n_leaves = curr.tree.get_all_leaves().length;
 	    var cluster_size_params = {
 		n_leaves : n_leaves,
-		label_height : d3.max([d3.functor(conf.label.height())()]),
+		label_height : d3.max([d3.functor(conf.label.height())(), max_node_height]),
 		label_padding : 15
 	    };
 	    conf.layout.adjust_cluster_size(cluster_size_params);
