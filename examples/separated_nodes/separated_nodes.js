@@ -1,4 +1,4 @@
-var tnt_theme_tree_collapse_nodes = function() {
+var tnt_theme_tree_separated_nodes = function() {
     "use strict";
 
     var tree_theme = function(tree_vis, div) {
@@ -11,23 +11,15 @@ var tnt_theme_tree_collapse_nodes = function() {
 	var node_size = 14;
 	var node_fill="lightgrey";
 	var node_stroke="black";
-	var expanded_node = tnt.tree.node_display.circle()
-	    .size(node_size)
+	var circle_node = tnt.tree.node_display.circle()
+	    .size(14) // This is used only for the circle display
 	    .fill(node_fill)
 	    .stroke(node_stroke);
-	var collapsed_node = tnt.tree.node_display.triangle()
-	    .size(node_size)
-	    .fill(node_fill)
-	    .stroke(node_stroke)
 
 	var node_display = tnt.tree.node_display()
-	    .size(24)
+	    .size(24) // This is used for the layout calculation
 	    .display (function (node) {
-	    	if (node.is_collapsed()) {
-		    collapsed_node.display().call(this, node);
-	    	} else {
-		    expanded_node.display().call(this, node);
-	    	}
+		circle_node.display().call(this, node);
 	    });
 
         tree_vis
@@ -37,11 +29,6 @@ var tnt_theme_tree_collapse_nodes = function() {
             .layout(tnt.tree.layout.vertical()
 		    .width(600)
 		    .scale(false));
-            
-        tree_vis.on_click (function(node){
-                node.toggle()
-                tree_vis.update();
-        });
 
         // The visualization is started at this point
         tree_vis(div);

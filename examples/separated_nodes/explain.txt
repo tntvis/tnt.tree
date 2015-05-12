@@ -1,0 +1,5 @@
+By default, the layout calculates the height of the tree by using the size of the nodes. If nodes are of different sizes, the maximum node size is used. All nodes are given the same space (vertical or radial depending on the layout)
+
+In TnT, all the tree nodes are given the same space (vertical or radial, depending on the layout) and this space is determined by the size of the nodes. If nodes are of different sizes, the maximum node size is used. The size of a node is given by the maximum value between the node itself (the tnt.tree.node_display object) and its label (the tnt.tree.label object).
+
+There are different ways of giving the nodes extra space, for example by giving more height to text labels. This example creates the same effect by giving the node a size different from the one that is used to plot the nodes themselves.
