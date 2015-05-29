@@ -38,7 +38,7 @@ var tnt_theme_tree_collapse_nodes = function() {
 		    .width(600)
 		    .scale(false));
             
-        tree_vis.on_click (function(node){
+        tree_vis.on ("click", function(node){
                 node.toggle()
                 tree_vis.update();
         });

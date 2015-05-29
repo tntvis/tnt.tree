@@ -24,4 +24,4 @@
    - Bugfix: on update the layout didn't take into account the max node height
    - Removed tnt.tree.node_display.cond (+ examples to get a similar behaviour)
    - Added examples to create separated nodes in a tree
-
+   - removed on_* method and added a generic "on" method

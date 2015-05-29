@@ -4,14 +4,16 @@ var tnt_tree_node = require("tnt.tree.node");
 var tree = function () {
     "use strict";
 
+    var dispatch = d3.dispatch ("click", "dblclick", "mouseover", "mouseout");
+
     var conf = {
 	duration         : 500,      // Duration of the transitions
 	node_display     : tree.node_display.circle(),
 	label            : tree.label.text(),
 	layout           : tree.layout.vertical(),
-	on_click         : function () {},
-	on_dbl_click     : function () {},
-	on_mouseover     : function () {},
+	// on_click         : function () {},
+	// on_dbl_click     : function () {},
+	// on_mouseover     : function () {},
 	branch_color       : 'black',
 	id               : "_id"
     };
@@ -28,7 +30,7 @@ var tree = function () {
 
     // By node data
     var sp_counts = {};
- 
+
     var scale = false;
 
     // The id of the tree container
@@ -47,7 +49,7 @@ var tree = function () {
     // The full tree
     var base = {
 	tree : undefined,
-	data : undefined,	
+	data : undefined,
 	nodes : undefined,
 	links : undefined
     };
@@ -144,12 +146,12 @@ var tree = function () {
 	nodes_g = vis
 	    .append("g")
 	    .attr("class", "nodes");
-	
+
 	//var link = vis
 	var link = links_g
 	    .selectAll("path.tnt_tree_link")
 	    .data(curr.links, function(d){return d.target[conf.id]});
-	
+
 	link
 	    .enter()
 	    .append("path")
@@ -160,7 +162,7 @@ var tree = function () {
 	    .style("stroke", function (d) {
 		return d3.functor(conf.branch_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
 	    })
-	    .attr("d", diagonal);	    
+	    .attr("d", diagonal);
 
 	// NODES
 	//var node = vis
@@ -198,23 +200,44 @@ var tree = function () {
 	    	conf.label.call(this, tnt_tree_node(d), conf.layout.type, d3.functor(conf.node_display.size())(tnt_tree_node(d)));
 	    });
 
-	new_node.on("click", function (node) {
-	    conf.on_click.call(this, tnt_tree_node(node));
+    new_node.on("click", function (node) {
+        var my_node = tnt_tree_node(node);
+        tree.trigger("node:click", my_node);
+        dispatch.click.call(this, my_node);
+    });
+    new_node.on("dblclick", function (node) {
+        var my_node = tnt_tree_node(node);
+        tree.trigger("node:dblclick", my_node);
+        dispatch.dblclick.call(this, my_node);
+    });
+    new_node.on("mouseover", function (node) {
+        var my_node = tnt_tree_node(node);
+        tree.trigger("node:hover", tnt_tree_node(node));
+        dispatch.mouseover.call(this, my_node);
+    });
+    new_node.on("mouseout", function (node) {
+        var my_node = tnt_tree_node(node);
+        tree.trigger("node:mouseout", tnt_tree_node(node));
+        dispatch.mouseout.call(this, my_node);
+    });
 
-	    tree.trigger("node:click", tnt_tree_node(node));
-	});
-
-	new_node.on("mouseenter", function (node) {
-	    conf.on_mouseover.call(this, tnt_tree_node(node));
-
-	    tree.trigger("node:hover", tnt_tree_node(node));
-	});
-
-	new_node.on("dblclick", function (node) {
-	    conf.on_dbl_click.call(this, tnt_tree_node(node));
-
-	    tree.trigger("node:dblclick", tnt_tree_node(node));
-	});
+	// new_node.on("click", function (node) {
+	//     conf.on_click.call(this, tnt_tree_node(node));
+    //
+	//     tree.trigger("node:click", tnt_tree_node(node));
+	// });
+    //
+	// new_node.on("mouseenter", function (node) {
+	//     conf.on_mouseover.call(this, tnt_tree_node(node));
+    //
+	//     tree.trigger("node:hover", tnt_tree_node(node));
+	// });
+    //
+	// new_node.on("dblclick", function (node) {
+	//     conf.on_dbl_click.call(this, tnt_tree_node(node));
+    //
+	//     tree.trigger("node:dblclick", tnt_tree_node(node));
+	// });
 
 
 	// Update plots an updated tree
@@ -258,7 +281,7 @@ var tree = function () {
 		      "," +
 		      conf.layout.translate_vis()[1] +
 		      ")");
-	    
+
 	    curr.nodes = cluster.nodes(curr.data);
 	    conf.layout.scale_branch_lengths(curr);
 	    curr.links = cluster.links(curr.nodes);
@@ -315,29 +338,50 @@ var tree = function () {
 		    return "tnt_tree_node_" + div_id + "_" + d._id;
 		})
 		.attr("transform", transform);
-   
+
 	    // Exiting nodes are just removed
 	    node
 		.exit()
 		.remove();
 
-	    new_node.on("click", function (node) {
-		conf.on_click.call(this, tnt_tree_node(node));
+        new_node.on("click", function (node) {
+            var my_node = tnt_tree_node(node);
+            tree.trigger("node:click", my_node);
+            dispatch.click.call(this, my_node);
+        });
+        new_node.on("dblclick", function (node) {
+            var my_node = tnt_tree_node(node);
+            tree.trigger("node:dblclick", my_node);
+            dispatch.dblclick.call(this, my_node);
+        });
+        new_node.on("mouseover", function (node) {
+            var my_node = tnt_tree_node(node);
+            tree.trigger("node:hover", tnt_tree_node(node));
+            dispatch.mouseover.call(this, my_node);
+        });
+        new_node.on("mouseout", function (node) {
+            var my_node = tnt_tree_node(node);
+            tree.trigger("node:mouseout", tnt_tree_node(node));
+            dispatch.mouseout.call(this, my_node);
+        });
 
-		tree.trigger("node:click", tnt_tree_node(node));
-	    });
-
-	    new_node.on("mouseenter", function (node) {
-		conf.on_mouseover.call(this, tnt_tree_node(node));
-
-		tree.trigger("node:hover", tnt_tree_node(node));
-	    });
-
-	    new_node.on("dblclick", function (node) {
-		conf.on_dbl_click.call(this, tnt_tree_node(node));
-
-		tree.trigger("node:dblclick", tnt_tree_node(node));
-	    });
+	    // new_node.on("click", function (node) {
+		// conf.on_click.call(this, tnt_tree_node(node));
+        //
+		// tree.trigger("node:click", tnt_tree_node(node));
+	    // });
+        //
+	    // new_node.on("mouseenter", function (node) {
+		// conf.on_mouseover.call(this, tnt_tree_node(node));
+        //
+		// tree.trigger("node:hover", tnt_tree_node(node));
+	    // });
+        //
+	    // new_node.on("dblclick", function (node) {
+		// conf.on_dbl_click.call(this, tnt_tree_node(node));
+        //
+		// tree.trigger("node:dblclick", tnt_tree_node(node));
+	    // });
 
 
 	    // We need to re-create all the nodes again in case they have changed lively (or the layout)
@@ -408,7 +452,7 @@ var tree = function () {
     });
 
     api.method ('focus_node', function (node, keepSingletons) {
-	// find 
+	// find
 	var found_node = t.root().find_node(function (n) {
 	    return node.id() === n.id();
 	});
@@ -428,7 +472,7 @@ var tree = function () {
 	return this;
     });
 
-    return t;
+    return d3.rebind (t, dispatch, "on");
 };
 
 module.exports = exports = tree;
