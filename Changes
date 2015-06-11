@@ -25,3 +25,6 @@
    - Removed tnt.tree.node_display.cond (+ examples to get a similar behaviour)
    - Added examples to create separated nodes in a tree
    - removed on_* method and added a generic "on" method
+
+0.0.20
+   - id on trees now accepts a function

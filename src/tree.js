@@ -7,15 +7,17 @@ var tree = function () {
     var dispatch = d3.dispatch ("click", "dblclick", "mouseover", "mouseout");
 
     var conf = {
-	duration         : 500,      // Duration of the transitions
-	node_display     : tree.node_display.circle(),
-	label            : tree.label.text(),
-	layout           : tree.layout.vertical(),
-	// on_click         : function () {},
-	// on_dbl_click     : function () {},
-	// on_mouseover     : function () {},
-	branch_color       : 'black',
-	id               : "_id"
+        duration         : 500,      // Duration of the transitions
+        node_display     : tree.node_display.circle(),
+        label            : tree.label.text(),
+        layout           : tree.layout.vertical(),
+        // on_click         : function () {},
+        // on_dbl_click     : function () {},
+        // on_mouseover     : function () {},
+        branch_color     : 'black',
+        id               : function (d) {
+            return d._id;
+        }
     };
 
     // Keep track of the focused node
@@ -48,28 +50,28 @@ var tree = function () {
 
     // The full tree
     var base = {
-	tree : undefined,
-	data : undefined,
-	nodes : undefined,
-	links : undefined
+        tree : undefined,
+        data : undefined,
+        nodes : undefined,
+        links : undefined
     };
 
     // The curr tree. Needed to re-compute the links / nodes positions of subtrees
     var curr = {
-	tree : undefined,
-	data : undefined,
-	nodes : undefined,
-	links : undefined
+        tree : undefined,
+        data : undefined,
+        nodes : undefined,
+        links : undefined
     };
 
     // The cbak returned
     var t = function (div) {
 	div_id = d3.select(div).attr("id");
 
-        var tree_div = d3.select(div)
-            .append("div")
-	    .style("width", (conf.layout.width() +  "px"))
-	    .attr("class", "tnt_groupDiv");
+    var tree_div = d3.select(div)
+        .append("div")
+        .style("width", (conf.layout.width() +  "px"))
+        .attr("class", "tnt_groupDiv");
 
 	var cluster = conf.layout.cluster;
 
@@ -79,10 +81,10 @@ var tree = function () {
 	    var max = 0;
 	    var leaves = tree.get_all_leaves();
 	    for (var i=0; i<leaves.length; i++) {
-		var label_width = conf.label.width()(leaves[i]) + d3.functor(conf.node_display.size())(leaves[i]);
-		if (label_width > max) {
-		    max = label_width;
-		}
+            var label_width = conf.label.width()(leaves[i]) + d3.functor (conf.node_display.size())(leaves[i]);
+            if (label_width > max) {
+                max = label_width;
+            }
 	    }
 	    return max;
 	};
@@ -150,17 +152,19 @@ var tree = function () {
 	//var link = vis
 	var link = links_g
 	    .selectAll("path.tnt_tree_link")
-	    .data(curr.links, function(d){return d.target[conf.id]});
+	    .data(curr.links, function(d){
+            return conf.id(d.target);
+        });
 
 	link
 	    .enter()
 	    .append("path")
 	    .attr("class", "tnt_tree_link")
 	    .attr("id", function(d) {
-	    	return "tnt_tree_link_" + div_id + "_" + d.target._id;
+	    	return "tnt_tree_link_" + div_id + "_" + conf.id(d.target);
 	    })
 	    .style("stroke", function (d) {
-		return d3.functor(conf.branch_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
+            return d3.functor(conf.branch_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
 	    })
 	    .attr("d", diagonal);
 
@@ -168,7 +172,9 @@ var tree = function () {
 	//var node = vis
 	var node = nodes_g
 	    .selectAll("g.tnt_tree_node")
-	    .data(curr.nodes, function(d) {return d[conf.id]});
+	    .data(curr.nodes, function(d) {
+            return conf.id(d)
+        });
 
 	var new_node = node
 	    .enter().append("g")
@@ -289,12 +295,14 @@ var tree = function () {
 	    // LINKS
 	    var link = links_g
 		.selectAll("path.tnt_tree_link")
-		.data(curr.links, function(d){return d.target[conf.id]});
+		.data(curr.links, function(d){
+            return conf.id(d.target)
+        });
 
             // NODES
 	    var node = nodes_g
 		.selectAll("g.tnt_tree_node")
-		.data(curr.nodes, function(d) {return d[conf.id]});
+		.data(curr.nodes, function(d) {return conf.id(d)});
 
 	    var exit_link = link
 		.exit()
@@ -305,7 +313,7 @@ var tree = function () {
 		.append("path")
 		.attr("class", "tnt_tree_link")
 		.attr("id", function (d) {
-		    return "tnt_tree_link_" + div_id + "_" + d.target._id;
+		    return "tnt_tree_link_" + div_id + "_" + conf.id(d.target);
 		})
 		.attr("stroke", function (d) {
 		    return d3.functor(conf.branch_color)(tnt_tree_node(d.source), tnt_tree_node(d.target));
