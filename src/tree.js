@@ -89,17 +89,17 @@ var tree = function () {
 	    return max;
 	};
 
-	var max_leaf_node_height = function (tree) {
-	    var max = 0;
-	    var leaves = tree.get_all_leaves();
-	    for (var i=0; i<leaves.length; i++) {
-		var node_size = d3.functor(conf.node_display.size())(leaves[i]);
-		if (node_size > max) {
-		    max = node_size;
-		}
-	    }
-	    return max * 2;
-	};
+    var max_leaf_node_height = function (tree) {
+        var max = 0;
+        var leaves = tree.get_all_leaves();
+        for (var i=0; i<leaves.length; i++) {
+            var node_height = d3.functor(conf.node_display.size())(leaves[i]) * 2;
+            var label_height = d3.functor(conf.label.height())(leaves[i]);
+
+            max = d3.max([max, node_height, label_height]);
+        }
+        return max;
+    };
 
 	var max_label_length = max_leaf_label_length(curr.tree);
 	conf.layout.max_leaf_label_width(max_label_length);
@@ -111,7 +111,7 @@ var tree = function () {
 	// TODO: Substitute 15 by the horizontal transform of the nodes
 	var cluster_size_params = {
 	    n_leaves : n_leaves,
-	    label_height : d3.max([d3.functor(conf.label.height())(), max_node_height]),
+	    label_height : max_node_height,
 	    label_padding : 15
 	};
 
@@ -267,7 +267,7 @@ var tree = function () {
 	    var n_leaves = curr.tree.get_all_leaves().length;
 	    var cluster_size_params = {
 		n_leaves : n_leaves,
-		label_height : d3.max([d3.functor(conf.label.height())(), max_node_height]),
+		label_height : max_node_height,
 		label_padding : 15
 	    };
 	    conf.layout.adjust_cluster_size(cluster_size_params);

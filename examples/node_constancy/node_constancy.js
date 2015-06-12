@@ -68,7 +68,15 @@ var tnt_theme = function() {
                 .fill('grey')
             )
             .label(tnt.tree.label.text()
-                .height(20)
+                //.height(20)
+                .fontsize(function (node) {
+                    if (node.is_leaf()) {
+                        return 15;
+                    }
+                    return 12;
+                })
+                //.height(20)
+                .fontweight("bold")
             )
             .data(trees[0])
             .layout(tnt.tree.layout.vertical()

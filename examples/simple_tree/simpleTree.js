@@ -3,18 +3,25 @@ var theme = function() {
 
     var _ = function (tree_vis, div) {
 
-	tree_vis
-	    .data(tnt.tree.parse_newick(newick))
-	    .node_display(tree_vis.node_display().size(4).fill("orange"))
-	    .layout(tnt.tree.layout.vertical()
-		    .width(650)
-		    .scale(false)
-		   );
+        tree_vis
+            .data(tnt.tree.parse_newick(newick))
+            .node_display(tree_vis.node_display()
+                .size(4)
+                .fill("#888888")
+            )
+            .label (tnt.tree.label.text()
+                .fontsize(12)
+                .height(24)
+            )
+            .layout(tnt.tree.layout.vertical()
+                .width(650)
+                .scale(false)
+            );
 
-	tree_vis(div);
-    };
+    tree_vis(div);
+};
 
-    return _;
+return _;
 };
 
 // newick tree
