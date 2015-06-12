@@ -28,3 +28,5 @@
 
 0.0.20
    - id on trees now accepts a function
+0.0.21
+   - Added per-node fontsize, fontweight and dynamic height calculation of nodes
