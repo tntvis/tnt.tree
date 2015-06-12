@@ -24,9 +24,10 @@
    - Bugfix: on update the layout didn't take into account the max node height
    - Removed tnt.tree.node_display.cond (+ examples to get a similar behaviour)
    - Added examples to create separated nodes in a tree
-   - removed on_* method and added a generic "on" method
+   - removed on_* method nodes and added a generic "on" method
 
 0.0.20
    - id on trees now accepts a function
 0.0.21
+   - removed on_* method on lables and added generic "on" method
    - Added per-node fontsize, fontweight and dynamic height calculation of nodes
