@@ -7,8 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "gulp test",
-    "prepublish": "gulp test && gulp build-all"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
