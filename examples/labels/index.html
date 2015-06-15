@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>TnT Themes</title>
+
+<div id="body">
+
+  <!-- D3.js -->
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <!-- TnT -->
+  <link rel="stylesheet" href="../../build/tnt.tree.css" type="text/css" />
+  <script src="../../build/tnt.tree.js"></script>
+
+  <!-- Tree.js -->
+  <script src="labels.js"></script>
+
+  <h1>Labels on trees</h1>
+  <div id="speciesTree"></div>
+
+  <script>
+
+    (function() {
+    var tree_vis = tnt.tree()
+    var theme = tnt_theme_tree_labels();
+    theme(tree_vis, document.getElementById("speciesTree"));
+    }());
+
+  </script>
+
+  <footer>
+    <aside>Released under <a href="http://www.opensource.org/licenses/apache2.0.php">Apache 2.0</a>.</aside>
+    Copyright 2014 <a href="http://www.ebi.ac.uk/~mp" rel="author">Miguel Pignatelli</a>
+  </footer>
+
+
+</div>
