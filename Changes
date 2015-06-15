@@ -28,6 +28,12 @@
 
 0.0.20
    - id on trees now accepts a function
+
 0.0.21
    - removed on_* method on lables and added generic "on" method
    - Added per-node fontsize, fontweight and dynamic height calculation of nodes
+
+0.0.22
+   - changed the deployed css file to tnt.tree.css
+   - deduplication of css rules in final css file
+   - bugfix: fixed transfomation of composite labels

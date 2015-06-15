@@ -153,6 +153,7 @@ tree.label.img = function () {
             translate : [10, (-label.height()() / 2)],
             rotate : 0
         };
+
         if (layout_type === 'radial') {
             t.translate[0] = t.translate[0] + (d.x%360 < 180 ? 0 : label.width()()),
             t.translate[1] = t.translate[1] + (d.x%360 < 180 ? 0 : label.height()()),
@@ -169,7 +170,7 @@ tree.label.img = function () {
 tree.label.composite = function () {
     var labels = [];
 
-    var label = function (node, layout_type) {
+    var label = function (node, layout_type, node_size) {
         var curr_xoffset = 0;
 
         for (var i=0; i<labels.length; i++) {
@@ -189,7 +190,7 @@ tree.label.composite = function () {
             curr_xoffset += 10;
             curr_xoffset += display.width()(node);
 
-            display.call(this, node, layout_type);
+            display.call(this, node, layout_type, node_size);
         }
     };
 
