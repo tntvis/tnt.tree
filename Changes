@@ -40,3 +40,6 @@
 
 0.0.23
    - updated dependencies
+
+0.0.24
+   - removed deprecated rimraf and using del
