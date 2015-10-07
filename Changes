@@ -37,3 +37,6 @@
    - changed the deployed css file to tnt.tree.css
    - deduplication of css rules in final css file
    - bugfix: fixed transfomation of composite labels
+
+0.0.23
+   - updated dependencies
