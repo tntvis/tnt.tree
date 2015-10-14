@@ -43,3 +43,6 @@
 
 0.0.24
    - removed deprecated rimraf and using del
+
+0.0.25
+   - fix clean gulp rule
