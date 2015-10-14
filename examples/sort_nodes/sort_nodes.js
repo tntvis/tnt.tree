@@ -66,7 +66,7 @@ var tnt_theme_tree_sort_nodes = function() {
 		    }
 		    return "black";
 		}));
-		tree_vis.update();
+		tree_vis.update_nodes();
 	    });
 
 	sel2
@@ -104,7 +104,7 @@ var tnt_theme_tree_sort_nodes = function() {
 	var scale = d3.scale.linear()
 	    .domain(extent)
 	    .range(["steelblue", "red"]);
-	
+
 	tree_vis
 	    .data(tree_data)
 	    .duration(2000)
@@ -131,8 +131,8 @@ var tnt_theme_tree_sort_nodes = function() {
 	tree_vis(div);
     };
 
-    // Helper function to get the lowest value in                                                   
-    // the subnode -- this is used in the sort cbak                                                 
+    // Helper function to get the lowest value in
+    // the subnode -- this is used in the sort cbak
     var get_highest_val = function (node, prop) {
         var highest = 0;
         node.apply(function (n) {

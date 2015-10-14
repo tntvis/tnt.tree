@@ -46,3 +46,4 @@
 
 0.0.25
    - fix clean gulp rule
+   - included update_nodes method that updates only node displays (instead of having to call the heavier update method)
