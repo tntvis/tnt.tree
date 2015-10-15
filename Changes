@@ -47,3 +47,6 @@
 0.0.25
    - fix clean gulp rule
    - included update_nodes method that updates only node displays (instead of having to call the heavier update method)
+
+0.0.26
+   - changed nodes_display to allow mouseover methods without re-firing with every updated

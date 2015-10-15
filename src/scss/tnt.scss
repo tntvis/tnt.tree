@@ -4,3 +4,12 @@
     position : relative;
     margin : 0px 3px 5px 3px;
 }
+
+.tnt_node_display_elem {
+    pointer-events: none;
+}
+
+.tnt_tree_node_proxy {
+    opacity: 0;
+    pointer-events: all;
+}

@@ -18,7 +18,7 @@ var tnt_theme_tree_collapse_nodes = function() {
         var collapsed_node = tnt.tree.node_display.triangle()
             .size(node_size)
             .fill(node_fill)
-            .stroke(node_stroke)
+            .stroke(node_stroke);
 
         var node_display = tnt.tree.node_display()
             .size(24)
@@ -39,7 +39,7 @@ var tnt_theme_tree_collapse_nodes = function() {
             .scale(false));
 
         tree_vis.on ("click", function(node){
-            node.toggle()
+            node.toggle();
             tree_vis.update();
         });
 

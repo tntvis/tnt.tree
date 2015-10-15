@@ -281,7 +281,7 @@ var tree = function () {
                     return conf.id(d.target);
                 });
 
-                // NODES
+            // NODES
     	    var node = nodes_g
         		.selectAll("g.tnt_tree_node")
         		.data(curr.nodes, function(d) {
@@ -385,7 +385,12 @@ var tree = function () {
                 .selectAll("g.tnt_tree_node");
 
             // re-create all the nodes again
-            node.selectAll("*").remove();
+            // node.selectAll("*").remove();
+            node
+                .each(function () {
+                    conf.node_display.reset.call(this);
+                });
+
             node
                 .each(function (d) {
                     //console.log(conf.node_display());
