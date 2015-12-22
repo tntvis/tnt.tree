@@ -4,3 +4,5 @@ node_modules
 build
 *.css
 *.map
+Gemfile.lock
+_site
