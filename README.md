@@ -4,7 +4,7 @@
 tnt.tree
 =========
 Tree visualiation with TnT library.
-Full documentation can be found [here](http://emepyc.github.io/tnt)
+Full documentation can be found [here](http://emepyc.github.io/tnt.tree)
 
 Building tnt.tree
 ------------------
@@ -15,4 +15,3 @@ $ npm install
 $ gulp build-browser # gulp build-browser-min
 ```
 The generated javascript and css files will be at ./build
-
