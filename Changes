@@ -52,3 +52,5 @@
    - changed nodes_display to allow mouseover methods without re-firing with every updated
 0.1.0
    - Added documentation
+   - Removed tnt.tooltip
+   
