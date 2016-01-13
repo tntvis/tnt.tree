@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "biojs-events": "0.0.4",
-    "tnt.api": "^0.1.0",
+    "tnt.api": "^0.1.1",
     "tnt.newick": "^0.1.0",
     "tnt.tree.node": "^0.1.0"
   },
