@@ -4,9 +4,9 @@
 # TnT Tree
 TnT Tree is a javascript library for displaying trees. It is part of the the [TnT](http://emepyc.github.io/tnt/) set of visualisation libraries to display trees and track-based visualisations. It has been designed with a powerful API written with flexibility in mind that allows the creation of expressive, dynamic and powerful tree visualizations.
 
-Check the complete [documentation](http://emepyc.github.io/tnt.tree/).
+Check out the complete [documentation](http://tntvis.github.io/tnt.tree/).
 
-See more [examples](http://emepyc.github.io/tnt.tree/examples/)
+Check out the [examples](http://tntvis.github.io/tnt.tree/examples/)
 
 ## Installation
 
@@ -26,4 +26,4 @@ gulp build-browser
 ```
 
 ## Feedback
-Please, send any feedback to emepyc@gmail.com. Bug reports and feature requests are welcome in the repo [bug tracker](https://github.com/emepyc/tnt.tree/issues)
+Please, send any feedback to emepyc@gmail.com. Bug reports and feature requests are welcome in the repo [bug tracker](https://github.com/tntvis/tnt.tree/issues)
