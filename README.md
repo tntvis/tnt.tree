@@ -2,7 +2,7 @@
 [![npm version](https://badge.fury.io/js/tnt.tree.svg)](http://badge.fury.io/js/tnt.tree)
 
 # TnT Tree
-TnT Tree is a javascript library for displaying trees. It is part of the the [TnT](http://emepyc.github.io/tnt/) set of visualisation libraries to display trees and track-based visualisations. It has been designed with a powerful API written with flexibility in mind that allows the creation of expressive, dynamic and powerful tree visualizations.
+TnT Tree is a javascript library for displaying trees. It is part of the the [TnT](http://tntvis.github.io/tnt/) set of visualisation libraries to display trees and track-based visualisations. It has been designed with a powerful API written with flexibility in mind that allows the creation of expressive, dynamic and powerful tree visualizations.
 
 Check out the complete [documentation](http://tntvis.github.io/tnt.tree/).
 
@@ -19,7 +19,7 @@ npm install tnt.tree
 - github:
 
 ```
-git clone https://github.com/emepyc/tnt.tree
+git clone https://github.com/tntvis/tnt.tree
 cd tnt.tree
 npm install
 gulp build-browser
