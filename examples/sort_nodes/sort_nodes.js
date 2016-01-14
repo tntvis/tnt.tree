@@ -1,4 +1,4 @@
-var tnt_theme_tree_sort_nodes = function() {
+var sort_nodes_theme = function() {
     "use strict";
 
     var tree_theme = function (tree_vis, div) {
