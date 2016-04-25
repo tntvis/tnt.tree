@@ -67,7 +67,6 @@ tree.diagonal.vertical = function (useArc) {
         var mid = pathData[1];
         var dst = pathData[2];
         var radius = (mid[1] - src[1]) * 2000;
-        console.log(radius);
 
         return "M" + src + " A" + [radius,radius] + " 0 0,0 " + mid + "M" + mid + "L" + dst;
         // return "M" + src + " L" + mid + " L" + dst;

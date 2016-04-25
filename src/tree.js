@@ -30,11 +30,6 @@ var tree = function () {
     // Ease of the transitions
     var ease = "cubic-in-out";
 
-    // By node data
-    var sp_counts = {};
-
-    var scale = false;
-
     // The id of the tree container
     var div_id;
 
@@ -410,24 +405,67 @@ var tree = function () {
     var api = apijs (t)
     	.getset (conf);
 
+    // n is the number to interpolate, the second argument can be either "tree" or "pixel" depending
+    // if n is set to tree units or pixels units
+    api.method ('scale_bar', function (n, units) {
+        if (!t.layout().scale()) {
+            return;
+        }
+        if (!units) {
+            units = "pixel";
+        }
+        var val;
+        links_g.select("path")
+            .each(function (p) {
+                var d = this.getAttribute("d");
+
+                var pathParts = d.split(/[MLA]/);
+                var toStr = pathParts.pop();
+                var fromStr = pathParts.pop();
+
+                var from = fromStr.split(",");
+                var to = toStr.split(",");
+
+                var deltaX = to[0] - from[0];
+                var deltaY = to[1] - from[1];
+                var pixelsDist = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+
+                var source = p.source;
+                var target = p.target;
+
+                var branchDist = target._root_dist - source._root_dist;
+
+                // Supposing pixelsDist has been passed
+                if (units === "pixel") {
+                    val = (branchDist / pixelsDist) * n;
+                } else if (units === "tree") {
+                    val = (pixelsDist / branchDist) * n;
+                }
+            });
+        if (isNaN(val)) {
+            return;
+        }
+        return val;
+    });
+
     // TODO: Rewrite data using getset / finalizers & transforms
     api.method ('data', function (d) {
-	if (!arguments.length) {
-	    return base.data;
-	}
+        if (!arguments.length) {
+            return base.data;
+        }
 
-	// The original data is stored as the base and curr data
-	base.data = d;
-	curr.data = d;
+        // The original data is stored as the base and curr data
+        base.data = d;
+        curr.data = d;
 
-	// Set up a new tree based on the data
-	var newtree = tnt_tree_node(base.data);
+        // Set up a new tree based on the data
+        var newtree = tnt_tree_node(base.data);
 
-	t.root(newtree);
+        t.root(newtree);
 
-	tree.trigger("data:hasChanged", base.data);
+        tree.trigger("data:hasChanged", base.data);
 
-	return this;
+        return this;
     });
 
     // TODO: Rewrite tree using getset / finalizers & transforms
@@ -444,32 +482,32 @@ var tree = function () {
     });
 
     api.method ('subtree', function (curr_nodes, keepSingletons) {
-	var subtree = base.tree.subtree(curr_nodes, keepSingletons);
-	curr.data = subtree.data();
-	curr.tree = subtree;
+        var subtree = base.tree.subtree(curr_nodes, keepSingletons);
+        curr.data = subtree.data();
+        curr.tree = subtree;
 
-	return this;
+        return this;
     });
 
     api.method ('focus_node', function (node, keepSingletons) {
-	// find
-	var found_node = t.root().find_node(function (n) {
-	    return node.id() === n.id();
-	});
-	focused_node = found_node;
-	t.subtree(found_node.get_all_leaves(), keepSingletons);
+        // find
+        var found_node = t.root().find_node(function (n) {
+            return node.id() === n.id();
+        });
+        focused_node = found_node;
+        t.subtree(found_node.get_all_leaves(), keepSingletons);
 
-	return this;
+        return this;
     });
 
     api.method ('has_focus', function (node) {
-	return ((focused_node !== undefined) && (focused_node.id() === node.id()));
+        return ((focused_node !== undefined) && (focused_node.id() === node.id()));
     });
 
     api.method ('release_focus', function () {
-	t.data (base.data);
-	focused_node = undefined;
-	return this;
+        t.data (base.data);
+        focused_node = undefined;
+        return this;
     });
 
     return d3.rebind (t, dispatch, "on");

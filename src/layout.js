@@ -10,35 +10,35 @@ tree.layout = function () {
     };
 
     var cluster = d3.layout.cluster()
-	.sort(null)
-	.value(function (d) {return d.length} )
-	.separation(function () {return 1});
-    
+    	.sort(null)
+    	.value(function (d) {return d.length;} )
+    	.separation(function () {return 1;});
+
     var api = apijs (l)
-	.getset ('scale', true)
-	.getset ('max_leaf_label_width', 0)
-	.method ("cluster", cluster)
-	.method('yscale', function () {throw "yscale is not defined in the base object"})
-	.method('adjust_cluster_size', function () {throw "adjust_cluster_size is not defined in the base object" })
-	.method('width', function () {throw "width is not defined in the base object"})
-	.method('height', function () {throw "height is not defined in the base object"});
+    	.getset ('scale', true)
+    	.getset ('max_leaf_label_width', 0)
+    	.method ("cluster", cluster)
+    	.method('yscale', function () {throw "yscale is not defined in the base object";})
+    	.method('adjust_cluster_size', function () {throw "adjust_cluster_size is not defined in the base object"; })
+    	.method('width', function () {throw "width is not defined in the base object";})
+    	.method('height', function () {throw "height is not defined in the base object";});
 
     api.method('scale_branch_lengths', function (curr) {
-	if (l.scale() === false) {
-	    return
-	}
+    	if (l.scale() === false) {
+    	    return;
+    	}
 
-	var nodes = curr.nodes;
-	var tree = curr.tree;
+    	var nodes = curr.nodes;
+    	var tree = curr.tree;
 
-	var root_dists = nodes.map (function (d) {
-	    return d._root_dist;
-	});
+    	var root_dists = nodes.map (function (d) {
+    	    return d._root_dist;
+    	});
 
-	var yscale = l.yscale(root_dists);
-	tree.apply (function (node) {
-	    node.property("y", yscale(node.root_dist()));
-	});
+    	var yscale = l.yscale(root_dists);
+    	tree.apply (function (node) {
+    	    node.property("y", yscale(node.root_dist()));
+    	});
     });
 
     return l;
@@ -50,16 +50,16 @@ tree.layout.vertical = function () {
     layout.type = "vertical";
 
     var api = apijs (layout)
-	.getset ('width', 360)
-	.get ('translate_vis', [20,20])
-	.method ('diagonal', diagonal.vertical)
-	.method ('transform_node', function (d) {
-    	    return "translate(" + d.y + "," + d.x + ")";
-	});
+    	.getset ('width', 360)
+    	.get ('translate_vis', [20,20])
+    	.method ('diagonal', diagonal.vertical)
+    	.method ('transform_node', function (d) {
+        	    return "translate(" + d.y + "," + d.x + ")";
+    	});
 
     api.method('height', function (params) {
     	return (params.n_leaves * params.label_height);
-    }); 
+    });
 
     api.method('yscale', function (dists) {
     	return d3.scale.linear()
@@ -90,18 +90,18 @@ tree.layout.radial = function () {
     };
 
     var api = apijs (layout)
-	.getset (conf)
-	.getset ('translate_vis', [r, r]) // TODO: 1.3 should be replaced by a sensible value
-	.method ('transform_node', function (d) {
-	    return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")";
-	})
-	.method ('diagonal', diagonal.radial)
-	.method ('height', function () { return conf.width });
+    	.getset (conf)
+    	.getset ('translate_vis', [r, r]) // TODO: 1.3 should be replaced by a sensible value
+    	.method ('transform_node', function (d) {
+    	    return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")";
+    	})
+    	.method ('diagonal', diagonal.radial)
+    	.method ('height', function () { return conf.width; });
 
     // Changes in width affect changes in r
     layout.width.transform (function (val) {
     	r = val / 2;
-    	layout.cluster.size([360, r])
+    	layout.cluster.size([360, r]);
     	layout.translate_vis([r, r]);
     	return val;
     });
@@ -113,9 +113,9 @@ tree.layout.radial = function () {
     });
 
     api.method ("adjust_cluster_size", function (params) {
-	r = (layout.width()/2) - layout.max_leaf_label_width() - 20;
-	layout.cluster.size([360, r]);
-	return layout;
+    	r = (layout.width()/2) - layout.max_leaf_label_width() - 20;
+    	layout.cluster.size([360, r]);
+    	return layout;
     });
 
     return layout;

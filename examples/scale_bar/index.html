@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <!-- <script src="./d3.js" charset="utf-8"></script> -->
+
+    <!-- TnT -->
+    <link rel="stylesheet" href="../../build/tnt.tree.css" />
+    <script src="../../build/tnt.tree.js"></script>
+</head>
+
+<body>
+    <div id="mydiv"></div>
+    <script>
+    var newick = "(((Crotalus_oreganus_oreganus_cytochrome_b:0.00800,Crotalus_horridus_cytochrome_b:0.05866):0.04732,(Thamnophis_elegans_terrestris_cytochrome_b:0.00366,Thamnophis_atratus_cytochrome_b:0.00172):0.06255):0.00555,(Pituophis_catenifer_vertebralis_cytochrome_b:0.00552,Lampropeltis_getula_cytochrome_b:0.02035):0.05762,((Diadophis_punctatus_cytochrome_b:0.06486,Contia_tenuis_cytochrome_b:0.05342):0.01037,Hypsiglena_torquata_cytochrome_b:0.05346):0.00779);";
+
+    var tree_vis = tnt.tree()
+        .data(tnt.tree.parse_newick(newick));
+
+    tree_vis.layout()
+        .width(800)
+        .scale(true);
+
+    tree_vis.label()
+        .height(20);
+
+    tree_vis.node_display()
+        .fill("steelblue");
+
+    tree_vis.label()
+        .color("steelblue");
+
+    tree_vis(document.getElementById("mydiv"));
+
+    // Scale bar
+    var scaleBar = tree_vis.scale_bar(50, "pixel").toFixed(3);
+    var legend = d3.select("#mydiv");
+
+    legend
+        .append("div")
+        .style({
+            width:"50px",
+            height:"5px",
+            "background-color":"steelblue",
+            margin:"6px 5px 5px 25px",
+            float: "left"
+        });
+
+    legend
+        .append("text")
+        .style({
+            "font-size": "12px"
+        })
+        .text(scaleBar);
+    </script>
+
+</body>
