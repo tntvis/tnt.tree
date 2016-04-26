@@ -25,7 +25,7 @@ theme : node_size
 <h3>Input trees</h3>
 <p>Trees can be loaded in TnT Tree using its <a href="{{ site.baseurl }}/api/tree/index.html#tree.data">data</a> method. The format for this input tree is a nested object in which each object (node) has a <i>children</i> property whose value is an array of objects (children nodes in the tree). The terminal objects don't have the <i>children</i> property. This is a simple example of tree object:</p>
 
-```javascript
+{% highlight javascript %}
 var jsonObj = {
     "name" : "root",
     "children" : [
@@ -37,13 +37,13 @@ var jsonObj = {
         }
     ]
 };
-```
+{% endhighlight %}
 
 <p>Because it it not particularly easy to define trees this way, TnT Tree offers tnt.tree.<a href="{{ site.baseurl }}/api/tree/index.html#tnt.tree.parse_newick">parse_newick</a> and tnt.tree.<a href="{{ site.baseurl }}/api/tree/index.html#tnt.tree.parse_nhx">parse_nhx</a>, two methods that can read a newick or nhx string respectively and converts it into the structure shown above. When the input is a newick/nhx tree, the returned object has its <i>name</i> property set to the name of the node. If branch lengths are provided the <i>branch_length</i> property is used.</p>
 
 <h2><a name="example" href="#example">#</a>Example</h2>
 <p>Examples are a fundamental part of TnT Tree documentation. Check more in the <a href="{{ site.baseurl }}/examples/">examples page</a></p>
-{% highlight javascript linenos %}
+{% highlight javascript %}
 // Input tree
 var newick = '((human, chimp),mouse)';
 var treeObj = tnt.tree.parse_newick(newick);
@@ -87,7 +87,7 @@ tree (document.getElementById("divId"));
 <h2><a name="installation" href="#installation">#</a>Installation</h2>
 <p>TnT Tree can be linked directly from the github repo. It depends on the <a href="http://d3js.org">D3js</a> library and this needs to be linked before TnT Tree</p>
 
-{% highlight html linenos %}
+{% highlight html %}
 <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js" charset="utf-8"></script>
