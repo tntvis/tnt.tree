@@ -25,7 +25,7 @@ theme : node_size
 <h3>Input trees</h3>
 <p>Trees can be loaded in TnT Tree using its <a href="{{ site.baseurl }}/api/tree/index.html#tree.data">data</a> method. The format for this input tree is a nested object in which each object (node) has a <i>children</i> property whose value is an array of objects (children nodes in the tree). The terminal objects don't have the <i>children</i> property. This is a simple example of tree object:</p>
 
-{% highlight javascript linenos %}
+```javascript
 var jsonObj = {
     "name" : "root",
     "children" : [
@@ -37,7 +37,7 @@ var jsonObj = {
         }
     ]
 };
-{% endhighlight %}
+```
 
 <p>Because it it not particularly easy to define trees this way, TnT Tree offers tnt.tree.<a href="{{ site.baseurl }}/api/tree/index.html#tnt.tree.parse_newick">parse_newick</a> and tnt.tree.<a href="{{ site.baseurl }}/api/tree/index.html#tnt.tree.parse_nhx">parse_nhx</a>, two methods that can read a newick or nhx string respectively and converts it into the structure shown above. When the input is a newick/nhx tree, the returned object has its <i>name</i> property set to the name of the node. If branch lengths are provided the <i>branch_length</i> property is used.</p>
 
