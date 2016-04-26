@@ -1,0 +1,122 @@
+---
+layout : default
+title : TnT Tree
+type : overview
+theme : node_size
+---
+
+<h2>Visualization of trees for the web</h2>
+{% include theme.html %}
+
+<p><aside>See <a href={{ site.baseurl }}/examples/index.html>more examples</a></aside></p>
+
+<h2><a name="introduction" href="#introduction">#</a>Introduction</h2>
+<p><b>TnT Tree</b> is a javascript library for displaying trees in the web. It is part of the the <a href="tntvis.github.io/tnt">TnT</a> set of visualisation libraries to display trees and track-based visualisations. It has been designed with a powerful <a href="{{ site.baseurl }}/api/">API</a>, written with flexibility in mind, that allows the creation of expressive, dynamic, interactive and powerful tree visualizations.</p>
+
+<p>TnT Tree includes several elements to facilitate the creation, manipulation and configuration of trees: a <a href="{{ site.baseurl }}/api/tree/index.html#Tree_Visualization">tree display</a> that defines several properties of the visualisation including <a href="{{ site.baseurl }}/api/tree/index.html#Layout">layouts</a>, <a href="{{ site.baseurl }}/api/tree/index.html#Label">labels</a> and <a href="{{ site.baseurl }}/api/tree/index.html#Node_display">node displays</a>, a library to manipulate <a href="{{ site.baseurl }}/api/tree/index.html#Node">nodes</a> at the data level and methods to <a href="{{ site.baseurl }}/api/tree/index.html#Input_trees">load the trees in newick or nhx format</a>.</p>
+
+<h3>Tree Visualisation</h3>
+<p>In TnT Tree, a <a href="{{ site.baseurl }}/api/tree/index.html#Tree_visualisation">tree visualisation</a> is composed of several elements: a <a href="{{ site.baseurl }}/api/tree/index.html/#Layout">layout</a> that defines the shape of the tree (either <i>radial</i> or <i>vertical</i>), <a href="{{ site.baseurl }}/api/tree/index.html#Node_display">node displays</a> that define how each node is rendered and <a href="{{ site.baseurl }}/api/tree/index.html#Label">labels</a> that specify how the labels are defined in the final visualisation. Each of these elements can be configured independently and useful default values are provided. In the final tree, new nodes can be added or removed dynamically and the tree updated. All the methods available to configure each element are fully explained in the <a href="{{ site.baseurl }}/api/">API</a> documentation.
+
+
+<h3>Nodes</h3>
+<p>In TnT Tree incorporates several methods for <a href="{{ site.baseurl }}/api/tree/index.html#Node">tree manipulation</a> including a functional interface for traversing the tree, searching nodes, applying callbacks, collapsing parts of the tree, selecting subtrees or calculating the lowest common ancestor of a set of nodes, for example. Once the tree has loaded its data, it is possible to get the root node by calling its <a href="{{ site.baseurl }}/api/tree/index.html#tree.root">root</a> method. Check the <a href="{{ site.baseurl }}/api/tree/index.html#Node">Node API</a> documentation for a full list of methods available for nodes.</p>
+
+<h3>Input trees</h3>
+<p>Trees can be loaded in TnT Tree using its <a href="{{ site.baseurl }}/api/tree/index.html#tree.data">data</a> method. The format for this input tree is a nested object in which each object (node) has a <i>children</i> property whose value is an array of objects (children nodes in the tree). The terminal objects don't have the <i>children</i> property. This is a simple example of tree object:</p>
+
+{% highlight javascript linenos %}
+var jsonObj = {
+    "name" : "root",
+    "children" : [
+        {
+            "name" : "leaf1"
+        },
+        {
+            "name" : "leaf2"
+        }
+    ]
+};
+{% endhighlight %}
+
+<p>Because it it not particularly easy to define trees this way, TnT Tree offers tnt.tree.<a href="{{ site.baseurl }}/api/tree/index.html#tnt.tree.parse_newick">parse_newick</a> and tnt.tree.<a href="{{ site.baseurl }}/api/tree/index.html#tnt.tree.parse_nhx">parse_nhx</a>, two methods that can read a newick or nhx string respectively and converts it into the structure shown above. When the input is a newick/nhx tree, the returned object has its <i>name</i> property set to the name of the node. If branch lengths are provided the <i>branch_length</i> property is used.</p>
+
+<h2><a name="example" href="#example">#</a>Example</h2>
+<p>Examples are a fundamental part of TnT Tree documentation. Check more in the <a href="{{ site.baseurl }}/examples/">examples page</a></p>
+{% highlight javascript linenos %}
+// Input tree
+var newick = '((human, chimp),mouse)';
+var treeObj = tnt.tree.parse_newick(newick);
+
+// Tree visualisation configuration
+var tree = tnt.tree()
+    .data(treeObj)
+    .layout (tnt.tree.layout.vertical()
+        .width (650)
+    )
+    .node_display (tnt.tree.node_display.circle()
+        .size(5)
+        .fill(function (node) {
+            if (node.is_leaf() {
+                return "blue";
+            })
+            return "green";
+        })
+    )
+    .label (tnt.tree.label.text()
+        .height(30)
+        .text (function (node) {
+            return node.property("name");
+        })
+    );
+
+// Tree rendering
+tree (document.getElementById("divId"));
+{% endhighlight %}
+
+<p>The example above starts by creating a new tree object from a newick string using tnt.tree.<a href="{{ site.baseurl }}/api/tree/index.html#tnt.tree.parse_newick">parse_newick</a>. It then creates a new tree visualisation passing the tree object as its <a href="{{ site.baseurl }}/api/tree/index.html#tree.data">data</a>. The <a href="{{ site.baseurl }}/api/tree/index.html#Layout">layout</a> of the tree, the <a href="{{ site.baseurl }}/api/tree/index.html#Node_display">nodes aspect</a> and the <a href="{{ site.baseurl }}/api/tree/index.html#Label">labels</a> for the tree visualisation are also configured. Finally, the tree visualisation is rendered using the <i>div</i> element passed as its argument.</p>
+
+<p>The tree visualisation is a function itself that when executed initialises the visualisation using the provided <i>DOM element</i> as its DOM container. It is important to understand these two states of the visualisation:</p>
+
+<ul>
+  <li><b>Defined</b>: The tree instance is defined, but the visualisation hasn't been rendered and the container is still empty</li>
+  <li><b>Initialised</b>: The container is populated with the tree elements</li>
+</ul>
+
+
+<h2><a name="installation" href="#installation">#</a>Installation</h2>
+<p>TnT Tree can be linked directly from the github repo. It depends on the <a href="http://d3js.org">D3js</a> library and this needs to be linked before TnT Tree</p>
+
+{% highlight html linenos %}
+<link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js" charset="utf-8"></script>
+{% endhighlight %}
+
+<p>It is also possible to install the source code and build the library locally. This can be achieved done by using <i>npm</i> or <i>github</i>:</p>
+
+<ul>
+    <li>
+        Using <b>npm</b>:
+        {% highlight bash %}
+npm install tnt.tree
+        {% endhighlight %}
+    </li>
+    <li>
+        Building from <b>Git</b>:
+        {% highlight bash %}
+git clone https://github.com/tntvis/tnt.tree
+cd tnt.tree
+npm install
+npm build-browser
+        {% endhighlight %}
+    </li>
+</ul>
+
+<h2><a name="browsers" href="#browsers">#</a>Browser support</h2>
+<p>TnT works on HTML5, CSS3 and SVG-compliant browser, which generally means any "modern browser". The TnT library and themes are tested regularly against Chrome (Chromium) and major changes are regularly tested in recent versions of Firefox, Safari (Webkit) and Opera. It has been also tested in IE versions 9+. If you find any problem, please <a href="https://github.com/tntvis/tnt/issues">let me know</a>.</p>
+
+<p>The TnT library depends on the <a href="http://d3js.org">D3.js</a> library. Check its <a href="https://github.com/mbostock/d3/wiki#browser--platform-support">browser's compatibility note</a> for more information.</p>
+
+<h2><a name="Feedback" href="#Feedback">#</a>Feedback</h2>
+<p>Please, send any feedback to <a href="mailto:emepyc@gmail.com">emepyc@gmail.com</a>. Bug reports and feature requests are also welcome in the <a href="https://github.com/tntvis/tnt.tree/issues">issue tracker</a>

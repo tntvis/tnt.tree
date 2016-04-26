@@ -1,0 +1,25 @@
+---
+layout : default
+title : API Reference
+type : API
+theme : null
+---
+
+<h2>TnT Tree API</h2>
+<p>TnT Tree offers a flexible API that allows the configuration of every component of the tree visualisation. This is achieved by creating <i>interfaces</i> for the elements in the tree: <a href="tree/index.html#Layout">layouts</a>, <a href="tree/index.html#Node_display">node displays</a> and <a href="#Label">labels</a>. Using these interfaces TnT Tree offers pre-defined configurations of these elements. For example, for the general <a href="tree/index.html#tnt.tree.node_display">node display interface</a> TnT Tree offers different pre-defined configurations for displaying nodes as <a href="tree/index.html#tnt.tree.node_display.circle">circles</a>, <a href="tree/index.html#tnt.tree.node_display.square">squares</a> or <a href="tree/index.html#tnt.tree.node_display.triangle">triangles</a>.</p>
+
+<p>Some of the methods defined in the interface are needed to build the pre-defined elements while the others are configuration methods for all the pre-defined elements made with the interface. For example, the <a href="tree/index.html#tnt.tree.node_display">node display interface</a> exposes the following methods: <a href="tree/index.html#node_display.display">display</a>, <a href="tree/index.html#node_display.size">size</a>, <a href="tree/index.html#node_display.fill">fill</a>, <a href="tree/index.html#node_display.stroke">stroke</a> and <a href="tree/index.html#node_display.stroke_width">stroke_width</a>. The specific node displays (<a href="tree/index.html#tnt.tree.node_display.circle">circles</a>, <a href="tree/index.html#tnt.tree.node_display.square">squares</a> and <a href="tree/index.html#tnt.tree.node_display.triangle">triangles</a>) are built by setting the <a href="tree/index.html#node_display.display">display</a> method in the general interface. The rest of the methods (<a href="tree/index.html#node_display.size">size</a>, <a href="tree/index.html#node_display.fill">fill</a>, <a href="tree/index.html#node_display.stroke">stroke</a> and <a href="tree/index.html#node_display.stroke_width">stroke_width</a>) are configuration methods also in the pre-defined displays. When using the library most of the time the user will be using the pre-defined elements but new ones can be created using the interface.</p>
+
+<p>In the API documentation below interfaces are prepended by the <span style="color:gray">[interface]</span> keyword. Interface methods that are needed to create the pre-defined configurations are prepended with <span style="color:gray">[interface-method]</span></p>
+
+{% for toplevel in site.api %}
+<a href={{ site.baseurl }}/api/{{ toplevel.name }}/index.html><h2>{{ toplevel.name | capitalize }}</h2></a>
+{% for element in toplevel.elements %}
+<h3>{{ element.name }}</h3>
+<ul>
+    {% for item in element.elements %}
+    <li type="circle">{% if item.class %} <span style="color:gray"><i>[{{ item.class }}]</i></span> {% endif %}<a href={{ site.baseurl }}/api/{{ toplevel.name }}/index.html#{{ item.path }}.{{ item.name }}>{{ item.path }}.{{ item.name }}</a> : {{ item.desc }}</li>
+    {% endfor %}
+</ul>
+{% endfor %}
+{% endfor %}

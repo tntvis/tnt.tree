@@ -1,0 +1,14 @@
+<div id="example"></div>
+
+{% case page.theme %}
+  {% when 'node_size' %}
+     <script src="{{ site.baseurl }}/themes/node_size.js"></script>
+     <script>
+         (function () {
+             var tree_vis = tnt.tree();
+             var theme = tnt_theme_tree_node_size();
+             theme(tree_vis, document.getElementById("example"));
+         })();
+     </script>
+
+{% endcase %}

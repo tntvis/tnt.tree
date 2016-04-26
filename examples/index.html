@@ -1,0 +1,87 @@
+---
+layout : default
+title : TnT Tree Examples
+type : examples
+gists :
+   - title : simple
+     category : t
+     description : Simple tree display with TnT Board
+     id : b40a9b53adc76536327d
+
+   - title : Collapsible nodes
+     category : t
+     description : Example of tree with collapsible nodes
+     id : 3011520bbc4252e5fdae
+
+   - title : Labels
+     category : t
+     description : Different types of labels
+     id : ce7bf1ed999bf923d795
+
+   - title : Layouts
+     category : t
+     description : Example of different layouts
+     id : abab9a8443a3e15394f3
+
+   - title : Node constancy
+     category : t
+     description : Example showing node constancy between two trees when nodes are indexed by internal id or by name.
+     id : 784395387c81423476ef
+
+   - title : Node sizes
+     category : t
+     description : Example of a tree with different node sizes.
+     id : f36dcd3cd215ad1302c9
+
+   - title : Node height
+     category : t
+     description : Example showing how to set the height of nodes
+     id : a0c7e747dbfb1804d4b8
+
+   - title : Sorting nodes
+     category : t
+     description : Example showing dynamic sorting of nodes in a tree
+     id : 563dc6b946b40dd6cfdb
+
+   - title : Different labels in the same tree
+     category : t
+     description : Example showing different types of labels in the same tree
+     id : ae409eb069871e1be569
+
+   - title : Different labels in the same node
+     category : t
+     description : Example showing different types of labels in the same node
+     id : 598eebcca0f2595843f7
+
+   - title : Scaled branches
+     category : t
+     description : Dynamic example of scaled branches in a tree
+     id : 1fba9450fc685c5b3f64
+
+   - title : Tooltips on nodes
+     category : t
+     description : Example showing tooltips on nodes when they are clicked
+     id : c3dc71870c4d2401a4ac
+
+   - title : Ensembl gene tree
+     category : t
+     description : Ensembl gene tree display example (using TnT Rest to retrieve the gene tree)
+     id: c99e9b3cc6809904cd0d
+
+   - title : Searching Nodes
+     category : t
+     description : Example of searching nodes in a tree
+     id : d0502a9167d29b79d313
+
+   - title : Scale bar
+     category : t
+     description: Example of tree with a scale bar
+     id : 1b921c3c2e201f8d3da251d9e5a7677e
+---
+
+<p>These examples aim to document some important parts of the API by providing simple working code examples</p>
+<ul>
+{% for gist in page.gists %}
+<li><a href=http://bl.ocks.org/emepyc/{{ gist.id }}>{{ gist.title }}</a>: {{ gist.description }}</li>
+{% endfor %}
+</ul>

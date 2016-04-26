@@ -1,0 +1,21 @@
+---
+layout : api
+title : API Reference
+type : API
+theme : null
+api_toplevel : tree
+---
+<h2>Trees</h2>
+<p><i>tnt.tree</i> creates a new tree visualisation. There are several components that need to be set up in this visualisation. One is the tree object to display. You can obtain a valid tree object directly from <i>newick</i> or <i>nhx</i> formats through <a href="#tnt.tree.parse_newick">tnt.tree.parse_newick</a> or <a href="#tnt.tree.parse_nhx">tnt.tree.parse_nhx</a> respectively, or you can pass a javascript object with a tree structure as shown below. Once loaded TnT Tree offers several methods to manipulate the tree as shown below in the <a href="#Node">Node API</a>. For example:</p>
+
+{% highlight javascript linenos %}
+var newick = '((human, chimp),mouse)';
+var tree_vis = tnt.tree()
+    .data(tnt.tree.parse_newick(newick));
+
+var root = tree.root();
+
+tree_vis(document.getElementById("mydiv"));
+{% endhighlight %}
+
+<p>In the snippet above, a new tree visualisation is created using <a href="#tnt.tree">tnt.tree()</a> and using the shown <i>newick</i> tree as its data. The <a href="#tree.root">root</a> of the tree is then retrieved from the visualisation. At this point it is possible to update this tree with the methods explained below. It is important to realise that the tree is not <i>rendered</i> until the visualisation is executed using a <i>DOM container</i> as its argument (line 5 in the snippet above).</p>
