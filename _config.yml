@@ -100,13 +100,26 @@ api :
                 - name : root
                   path : tree
                   args : tnt.tree.node
-                  desc : sets the root node of the tree used in the visualization
-                  full : Sets the root <a href="#Node">node</a> of the tree used in the visualization. If called without arguments, the current <a href="#tree.root">root</a> is returned.
+                  desc : gets the root node of the tree used in the visualization
+                  full : Gets the root <a href="#Node">node</a> of the tree used in the visualization. This method can not be used to re-root a tree with an internal node.
                   example : |
                     var tree_vis = tnt.tree()
                         .data (tnt.tree.parse_newick (newick));
 
                     var root = tree_vis.root();
+
+                    // To re-root a tree on an internal node:
+                    // reroot on node 'x'
+                    var root = tree_vis.root();
+                    var node = root.find_node_by_name('x');
+                    var xTree = root.subtree(node.get_all_leaves());
+
+                    tree_vis.data(xTree.data());
+                    tree_vis.update();
+
+                    // To show the full tree again:
+                    tree_vis.data(root.data());
+                    tree_vis.update();
 
                 - name : scale_bar
                   path : tree
