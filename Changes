@@ -61,4 +61,6 @@
 0.1.3
    - fixed a problem in Chrome (v50) not displaying some branches in the vertical layout
    - added scale_bar method to the tree object + scale_bar example
-
+0.1.4
+   - reroot is supposed to be a getter method, not setter
+   - removed undocumented focus_node, has_focus and release_focus (not in spec)

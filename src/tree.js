@@ -22,7 +22,7 @@ var tree = function () {
 
     // Keep track of the focused node
     // TODO: Would it be better to have multiple focused nodes? (ie use an array)
-    var focused_node;
+    // var focused_node;
 
     // Extra delay in the transitions (TODO: Needed?)
     var delay = 0;
@@ -224,9 +224,9 @@ var tree = function () {
 
 
     	// Update plots an updated tree
-    	api.method ('update', function() {
-    	    tree_div
-        		.style("width", (conf.layout.width() + "px"));
+        api.method ('update', function() {
+            tree_div
+                .style("width", (conf.layout.width() + "px"));
     	    svg.attr("width", conf.layout.width());
 
     	    var cluster = conf.layout.cluster;
@@ -249,25 +249,25 @@ var tree = function () {
     	    };
     	    conf.layout.adjust_cluster_size(cluster_size_params);
 
-    	    svg
-        		.transition()
-        		.duration(conf.duration)
-        		.ease(ease)
-        		.attr("height", conf.layout.height(cluster_size_params) + 30); // height is in the layout
+            svg
+                .transition()
+                .duration(conf.duration)
+                .ease(ease)
+                .attr("height", conf.layout.height(cluster_size_params) + 30); // height is in the layout
 
     	    vis
-        		.transition()
-        		.duration(conf.duration)
-        		.attr("transform",
-        		      "translate(" +
-        		      conf.layout.translate_vis()[0] +
-        		      "," +
-        		      conf.layout.translate_vis()[1] +
-        		      ")");
+                .transition()
+                .duration(conf.duration)
+                .attr("transform",
+                "translate(" +
+                conf.layout.translate_vis()[0] +
+                "," +
+                conf.layout.translate_vis()[1] +
+                ")");
 
-    	    curr.nodes = cluster.nodes(curr.data);
-    	    conf.layout.scale_branch_lengths(curr);
-    	    curr.links = cluster.links(curr.nodes);
+            curr.nodes = cluster.nodes(curr.data);
+            conf.layout.scale_branch_lengths(curr);
+            curr.links = cluster.links(curr.nodes);
 
     	    // LINKS
     	    var link = links_g
@@ -442,11 +442,11 @@ var tree = function () {
                     val = (pixelsDist / branchDist) * n;
                 }
             });
-        if (isNaN(val)) {
-            return;
-        }
-        return val;
-    });
+            if (isNaN(val)) {
+                return;
+            }
+            return val;
+        });
 
     // TODO: Rewrite data using getset / finalizers & transforms
     api.method ('data', function (d) {
@@ -462,53 +462,37 @@ var tree = function () {
         var newtree = tnt_tree_node(base.data);
 
         t.root(newtree);
+        base.tree = newtree;
+        curr.tree = base.tree;
 
         tree.trigger("data:hasChanged", base.data);
 
         return this;
     });
 
-    // TODO: Rewrite tree using getset / finalizers & transforms
-    api.method ('root', function (myTree) {
-    	if (!arguments.length) {
-    	    return curr.tree;
-    	}
-
-	// The original tree is stored as the base, prev and curr tree
-    	base.tree = myTree;
-	curr.tree = base.tree;
-//	prev.tree = base.tree;
-    	return this;
+    // TODO: This is only a getter
+    api.method ('root', function () {
+        return curr.tree;
     });
 
-    api.method ('subtree', function (curr_nodes, keepSingletons) {
-        var subtree = base.tree.subtree(curr_nodes, keepSingletons);
-        curr.data = subtree.data();
-        curr.tree = subtree;
+    // api.method ('subtree', function (curr_nodes, keepSingletons) {
+    //     var subtree = base.tree.subtree(curr_nodes, keepSingletons);
+    //     curr.data = subtree.data();
+    //     curr.tree = subtree;
+    //
+    //     return this;
+    // });
 
-        return this;
-    });
-
-    api.method ('focus_node', function (node, keepSingletons) {
-        // find
-        var found_node = t.root().find_node(function (n) {
-            return node.id() === n.id();
-        });
-        focused_node = found_node;
-        t.subtree(found_node.get_all_leaves(), keepSingletons);
-
-        return this;
-    });
-
-    api.method ('has_focus', function (node) {
-        return ((focused_node !== undefined) && (focused_node.id() === node.id()));
-    });
-
-    api.method ('release_focus', function () {
-        t.data (base.data);
-        focused_node = undefined;
-        return this;
-    });
+    // api.method ('reroot', function (node, keepSingletons) {
+    //     // find
+    //     var root = t.root();
+    //     var found_node = t.root().find_node(function (n) {
+    //         return node.id() === n.id();
+    //     });
+    //     var subtree = root.subtree(found_node.get_all_leaves(), keepSingletons);
+    //
+    //     return subtree;
+    // });
 
     return d3.rebind (t, dispatch, "on");
 };

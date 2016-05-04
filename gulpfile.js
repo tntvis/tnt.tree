@@ -33,17 +33,15 @@ var outputFileMinPath = join(buildDir,outputFileMinSt);
 // a failing test breaks the whole build chain
 gulp.task('default', ['lint', 'test', 'build-all']);
 
-
 gulp.task('lint', function() {
-  return gulp.src('./src/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+    return gulp.src('./src/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
 });
 
 gulp.task('test', function () {
-  return gulp.src('./test/**/*.js', {read: false})
-    .pipe(mocha({reporter: 'spec',
-                 useColors: false}));
+    return gulp.src('./test/**/*.js', {read: false})
+        .pipe(mocha({reporter: 'spec', useColors: false}));
 });
 
 gulp.task('watch', function() {
@@ -53,14 +51,14 @@ gulp.task('watch', function() {
 
 // will remove everything in build
 gulp.task('clean', function() {
-  return del([buildDir]);
+    return del([buildDir]);
 });
 
 // just makes sure that the build dir exists
 gulp.task('init', ['clean'], function() {
-  mkdirp(buildDir, function (err) {
-    if (err) console.error(err)
-  });
+    mkdirp(buildDir, function (err) {
+        if (err) console.error(err);
+    });
 });
 
 // sass-import
@@ -69,32 +67,32 @@ gulp.task('sass', function () {
         .pipe(sass({
             errLogToConsole: true
         }))
-	.pipe(csspurge())
-    .pipe(rename(outputFile + '.css'))
-    .pipe(gulp.dest(buildDir));
+        .pipe(csspurge())
+        .pipe(rename(outputFile + '.css'))
+        .pipe(gulp.dest(buildDir));
 });
 
 // browserify debug
 gulp.task('build-browser',['init', 'sass'], function() {
-  return gulp.src(browserFile)
-  .pipe(browserify({debug:true}))
-  .pipe(rename(outputFileSt))
-  .pipe(gulp.dest(buildDir));
+    return gulp.src(browserFile)
+        .pipe(browserify({debug:true}))
+        .pipe(rename(outputFileSt))
+        .pipe(gulp.dest(buildDir));
 });
 
 // browserify min
 gulp.task('build-browser-min',['build-browser'], function() {
-  return gulp.src(outputFilePath)
-  .pipe(uglify())
-  .pipe(rename(outputFileMinSt))
-  .pipe(gulp.dest(buildDir));
+    return gulp.src(outputFilePath)
+        .pipe(uglify())
+        .pipe(rename(outputFileMinSt))
+        .pipe(gulp.dest(buildDir));
 });
 
 gulp.task('build-browser-gzip', ['build-browser-min'], function() {
-  return gulp.src(outputFileMinPath)
-    .pipe(gzip({append: false, gzipOptions: { level: 9 }}))
-    .pipe(rename(outputFile + ".min.gz.js"))
-    .pipe(gulp.dest(buildDir));
+    return gulp.src(outputFileMinPath)
+        .pipe(gzip({append: false, gzipOptions: { level: 9 }}))
+        .pipe(rename(outputFile + ".min.gz.js"))
+        .pipe(gulp.dest(buildDir));
 });
 
 gulp.task('build-all', ['build-browser-gzip']);

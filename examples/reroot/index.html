@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <!-- TnT -->
+    <link rel="stylesheet" href="../../build/tnt.tree.css" />
+    <script src="../../build/tnt.tree.js"></script>
+</head>
+
+<body>
+    <div id="mydiv"></div>
+    <script>
+    var newick = "(((Crotalus_oreganus_oreganus_cytochrome_b:0.00800,Crotalus_horridus_cytochrome_b:0.05866):0.04732,(Thamnophis_elegans_terrestris_cytochrome_b:0.00366,Thamnophis_atratus_cytochrome_b:0.00172):0.06255)internal:0.00555,(Pituophis_catenifer_vertebralis_cytochrome_b:0.00552,Lampropeltis_getula_cytochrome_b:0.02035):0.05762,((Diadophis_punctatus_cytochrome_b:0.06486,Contia_tenuis_cytochrome_b:0.05342):0.01037,Hypsiglena_torquata_cytochrome_b:0.05346):0.00779);";
+
+    var tree_vis = tnt.tree()
+        .data(tnt.tree.parse_newick(newick));
+        // .id(function (d) {
+        //     if (d.name) {
+        //         return d.name;
+        //     }
+        //     return d._id;
+        // });
+
+
+    tree_vis.layout()
+        .width(800)
+        .scale(true);
+
+    tree_vis.label()
+        .height(20);
+
+    tree_vis.node_display()
+        .fill("steelblue");
+
+    tree_vis.label()
+        .color("steelblue");
+
+    tree_vis(document.getElementById("mydiv"));
+
+    setTimeout(function () {
+        var root = tree_vis.root();
+        var node = root.find_node_by_name('internal');
+        var internalTree = root.subtree(node.get_all_leaves());
+
+        tree_vis.data(internalTree.data());
+        tree_vis.update();
+
+        setTimeout(function () {
+            tree_vis.data(root.data());
+            tree_vis.update();
+        }, 1000);
+    }, 1000);
+    </script>
+
+</body>
