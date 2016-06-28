@@ -64,3 +64,5 @@
 0.1.4
    - reroot is supposed to be a getter method, not setter
    - removed undocumented focus_node, has_focus and release_focus (not in spec)
+0.1.5
+   - added on load event
