@@ -4,7 +4,7 @@ var tnt_tree_node = require("tnt.tree.node");
 var tree = function () {
     "use strict";
 
-    var dispatch = d3.dispatch ("click", "dblclick", "mouseover", "mouseout");
+    var dispatch = d3.dispatch ("click", "dblclick", "mouseover", "mouseout", "load");
 
     var conf = {
         duration         : 500,      // Duration of the transitions
@@ -222,6 +222,7 @@ var tree = function () {
             dispatch.mouseout.call(this, my_node);
         });
 
+        dispatch.load();
 
     	// Update plots an updated tree
         api.method ('update', function() {
