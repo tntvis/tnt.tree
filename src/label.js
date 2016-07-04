@@ -125,6 +125,39 @@ tree.label.text = function () {
     return label;
 };
 
+
+// svg based labels
+tree.label.svg = function () {
+    var label = tree.label();
+
+    var api = apijs (label)
+        .getset("element", function (d) {
+            return d.data().element;
+        });
+    label.display (function (node, layout_type) {
+        var n = label.element()(node);
+        this.appendChild(n.node());
+        return n;
+    });
+    label.transform (function (node, layout_type) {
+        var d = node.data();
+        var t = {
+            translate : [10, (-label.height()() / 2)],
+            rotate : 0
+        };
+
+        if (layout_type === 'radial') {
+            t.translate[0] = t.translate[0] + (d.x%360 < 180 ? 0 : label.width()()),
+            t.translate[1] = t.translate[1] + (d.x%360 < 180 ? 0 : label.height()()),
+            t.rotate = (d.x%360 < 180 ? 0 : 180)
+        }
+
+        return t;
+    });
+
+    return label;
+};
+
 // Image based labels
 tree.label.img = function () {
     var label = tree.label();
