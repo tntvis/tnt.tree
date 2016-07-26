@@ -17,7 +17,8 @@ tree.node_display = function () {
         }
 
     	n.display().call(this, node);
-        var dim = this.getBBox();
+        // var dim = this.getBBox();
+        var dim = d3.functor(n.size())(node);
         proxy
             .attr("x", dim.x)
             .attr("y", dim.y)

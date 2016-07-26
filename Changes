@@ -66,3 +66,5 @@
    - removed undocumented focus_node, has_focus and release_focus (not in spec)
 0.1.5
    - added on load event
+0.1.7
+   - avoid calling getBBox in node_display (FF fails)
