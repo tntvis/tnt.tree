@@ -10,19 +10,13 @@
 </head>
 
 <body>
+    <input type=button value="Get subtree" onclick="switchTree()"></input>
     <div id="mydiv"></div>
     <script>
     var newick = "(((Crotalus_oreganus_oreganus_cytochrome_b:0.00800,Crotalus_horridus_cytochrome_b:0.05866):0.04732,(Thamnophis_elegans_terrestris_cytochrome_b:0.00366,Thamnophis_atratus_cytochrome_b:0.00172):0.06255)internal:0.00555,(Pituophis_catenifer_vertebralis_cytochrome_b:0.00552,Lampropeltis_getula_cytochrome_b:0.02035):0.05762,((Diadophis_punctatus_cytochrome_b:0.06486,Contia_tenuis_cytochrome_b:0.05342):0.01037,Hypsiglena_torquata_cytochrome_b:0.05346):0.00779);";
 
     var tree_vis = tnt.tree()
         .data(tnt.tree.parse_newick(newick));
-        // .id(function (d) {
-        //     if (d.name) {
-        //         return d.name;
-        //     }
-        //     return d._id;
-        // });
-
 
     tree_vis.layout()
         .width(800)
@@ -39,19 +33,25 @@
 
     tree_vis(document.getElementById("mydiv"));
 
-    setTimeout(function () {
-        var root = tree_vis.root();
-        var node = root.find_node_by_name('internal');
-        var internalTree = root.subtree(node.get_all_leaves());
 
-        tree_vis.data(internalTree.data());
-        tree_vis.update();
-
-        setTimeout(function () {
+    var root = tree_vis.root(); // The root node of the full tree
+    var node = root.find_node_by_name("internal"); // The root node of the sub tree
+    var subtree = root.subtree(node.get_all_leaves()); // The subtree
+    var treeIsFull = true; // We switch between full tree and partial tree displays. At start it is full
+    function switchTree() {
+        treeIsFull = !treeIsFull;
+        if (treeIsFull) {
             tree_vis.data(root.data());
             tree_vis.update();
-        }, 1000);
-    }, 1000);
+            // Change the label in the button
+            d3.select("input").attr("value", "Get subtree");
+        } else {
+            tree_vis.data(subtree.data());
+            tree_vis.update();
+            // Change the label in the button
+            d3.select("input").attr("value", "Get full tree");
+        }
+    }
     </script>
 
 </body>
