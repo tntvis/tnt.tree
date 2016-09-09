@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    
+    <!-- Font awesome icons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+
+    <!-- Tnt utils -->
+    <script src="https://cdn.rawgit.com/tntvis/tnt.utils/master/build/tnt.utils.js"></script>
+
+    <!-- TnT tree -->
+    <link rel="stylesheet" href="../../build/tnt.tree.css" />
+    <script src="../../build/tnt.tree.js"></script>
+</head>
+
+<body>
+    <div> <i style="margin-left:20px; color:steelblue" class="fa fa-download fa-2x" onclick="download()"></i></div>
+    <div id="mydiv"></div>
+    <script>
+    function download () {
+        var pngExporter = tnt.utils.png()
+            .filename("treeSample.png")
+        pngExporter(d3.select("svg"));
+    };
+
+    var newick = "(((Crotalus_oreganus_oreganus_cytochrome_b:0.00800,Crotalus_horridus_cytochrome_b:0.05866):0.04732,(Thamnophis_elegans_terrestris_cytochrome_b:0.00366,Thamnophis_atratus_cytochrome_b:0.00172):0.06255):0.00555,(Pituophis_catenifer_vertebralis_cytochrome_b:0.00552,Lampropeltis_getula_cytochrome_b:0.02035):0.05762,((Diadophis_punctatus_cytochrome_b:0.06486,Contia_tenuis_cytochrome_b:0.05342):0.01037,Hypsiglena_torquata_cytochrome_b:0.05346):0.00779);";
+
+    var tree_vis = tnt.tree()
+        .data(tnt.tree.parse_newick(newick));
+
+    tree_vis.layout()
+        .width(800)
+        .scale(true);
+
+    tree_vis.label()
+        .height(20);
+
+    tree_vis.node_display()
+        .fill("steelblue");
+
+    tree_vis.label()
+        .color("steelblue");
+
+    tree_vis(document.getElementById("mydiv"));
+
+    </script>
+
+</body>
