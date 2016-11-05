@@ -68,3 +68,5 @@
    - added on load event
 0.1.7
    - avoid calling getBBox in node_display (FF fails)
+0.1.8
+   - bugfix: scale bar was not set when the first branch had length 0
