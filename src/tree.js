@@ -416,8 +416,9 @@ var tree = function () {
             units = "pixel";
         }
         var val;
-        links_g.select("path")
+        links_g.selectAll("path")
             .each(function (p) {
+                if (val) return;
                 var d = this.getAttribute("d");
 
                 var pathParts = d.split(/[MLA]/);
@@ -435,17 +436,16 @@ var tree = function () {
                 var target = p.target;
 
                 var branchDist = target._root_dist - source._root_dist;
-
-                // Supposing pixelsDist has been passed
-                if (units === "pixel") {
-                    val = (branchDist / pixelsDist) * n;
-                } else if (units === "tree") {
-                    val = (pixelsDist / branchDist) * n;
+                if (branchDist) {
+                    // Supposing pixelsDist has been passed
+                    if (units === "pixel") {
+                        val = (branchDist / pixelsDist) * n;
+                    } else if (units === "tree") {
+                        val = (pixelsDist / branchDist) * n;
+                    }
                 }
+
             });
-            if (isNaN(val)) {
-                return;
-            }
             return val;
         });
 

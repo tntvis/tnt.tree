@@ -3,7 +3,6 @@
 <head>
     <!-- D3 -->
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <!-- <script src="./d3.js" charset="utf-8"></script> -->
 
     <!-- TnT -->
     <link rel="stylesheet" href="../../build/tnt.tree.css" />
@@ -13,7 +12,8 @@
 <body>
     <div id="mydiv"></div>
     <script>
-    var newick = "(((Crotalus_oreganus_oreganus_cytochrome_b:0.00800,Crotalus_horridus_cytochrome_b:0.05866):0.04732,(Thamnophis_elegans_terrestris_cytochrome_b:0.00366,Thamnophis_atratus_cytochrome_b:0.00172):0.06255):0.00555,(Pituophis_catenifer_vertebralis_cytochrome_b:0.00552,Lampropeltis_getula_cytochrome_b:0.02035):0.05762,((Diadophis_punctatus_cytochrome_b:0.06486,Contia_tenuis_cytochrome_b:0.05342):0.01037,Hypsiglena_torquata_cytochrome_b:0.05346):0.00779);";
+    // var newick = "(((Crotalus_oreganus_oreganus_cytochrome_b:0.00800,Crotalus_horridus_cytochrome_b:0.05866):0.04732,(Thamnophis_elegans_terrestris_cytochrome_b:0.00366,Thamnophis_atratus_cytochrome_b:0.00172):0.06255):0.00555,(Pituophis_catenifer_vertebralis_cytochrome_b:0.00552,Lampropeltis_getula_cytochrome_b:0.02035):0.05762,((Diadophis_punctatus_cytochrome_b:0.06486,Contia_tenuis_cytochrome_b:0.05342):0.01037,Hypsiglena_torquata_cytochrome_b:0.05346):0.00779);";
+    var newick = "(((arath.AT5G60640.1:0.32911,(solly.Solyc06g075210.2.1:0.42215,solly.Solyc11g069400.1.1:0.13359):0.16168):0.06772,((((lotja.Lj3g3v3085830.1:0.11216,((aradu.Aradu.IRK0C.1:0.01585,aradu.Aradu.XJ6TW.1:0.01412):0.00053,(araip.Araip.9K298.1:0.00213,aradu.Aradu.1291C.1:0.09688):0.00186):0.22815):0.02341,(cajca.C.cajan_21520:0.06963,((phavu.Phvul.011G079000.1:0.03461,vigra.Vradi02g05810.1:0.04503):0.04038,(glyma.Glyma.11G146800.1:0.03475,glyma.Glyma.12G067700.1:0.0674):0.02313):0.01473):0.03652):0.02815,(cicar.Ca_14570:0.06004,medtr.Medtr4g059450.1:0.07727):0.038):0.09289,((((glyma.Glyma.12G172800.1:0.05337,glyma.Glyma.13G326200.1:0.04236):0.04403,(cajca.C.cajan_34019:0.07586,(phavu.Phvul.005G135600.1:0.05345,vigra.Vradi04g02780.1:0.04608):0.05396):0.0156):0.04602,(lotja.Lj0g3v0149129.2:0.09957,(cicar.Ca_02530:0.07903,medtr.Medtr2g094180.1:0.11076):0.07025):0.03662):0.01674,(aradu.Aradu.8P6BN.1:0.00171,araip.Araip.SB6R7.1:0.01115):0.11834):0.04132):0.06071):0,(vitvi.GSVIVT01025184001:0.11134,(prupe.ppa003432m:0.21011,(((arath.AT3G54960.1:0.42194,(orysa.LOC_Os02g01010.1:0.1347,(zeama.GRMZM2G033829_P01:0.09654,zeama.GRMZM2G134889_P01:0.06871):0.11319):0.37777):0.08035,(ambtr.evm_27.model.AmTr_v1.0_scaffold00175.37:0.34236,solly.Solyc04g049450.2.1:0.26635):0.03042):0.01848,vitvi.GSVIVT01016282001:0.25257)that:0.02943):0.03241):0.00833)this:0.0079;";
 
     var tree_vis = tnt.tree()
         .data(tnt.tree.parse_newick(newick));
