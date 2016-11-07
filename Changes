@@ -70,3 +70,5 @@
    - avoid calling getBBox in node_display (FF fails)
 0.1.8
    - bugfix: scale bar was not set when the first branch had length 0
+0.1.9
+   - removed extra logs in built
