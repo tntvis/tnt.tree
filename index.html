@@ -53,13 +53,14 @@ var tree = tnt.tree()
     .data(treeObj)
     .layout (tnt.tree.layout.vertical()
         .width (650)
+        .scale(false)
     )
     .node_display (tnt.tree.node_display.circle()
         .size(5)
         .fill(function (node) {
-            if (node.is_leaf() {
+            if (node.is_leaf()) {
                 return "blue";
-            })
+            }
             return "green";
         })
     )
