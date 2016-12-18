@@ -8,22 +8,21 @@ tree.node_display = function () {
         var proxy;
         var thisProxy = d3.select(this).select(".tnt_tree_node_proxy");
         if (thisProxy[0][0] === null) {
-            var size = d3.functor(n.size())(node);
             proxy = d3.select(this)
                 .append("rect")
                 .attr("class", "tnt_tree_node_proxy");
+
         } else {
             proxy = thisProxy;
         }
 
     	n.display().call(this, node);
-        // var dim = this.getBBox();
-        var dim = d3.functor(n.size())(node);
+        var size = d3.functor(n.size())(node);
         proxy
-            .attr("x", dim.x)
-            .attr("y", dim.y)
-            .attr("width", dim.width)
-            .attr("height", dim.height);
+            .attr("x", (-size))
+            .attr("y", (-size))
+            .attr("width", (size * 2))
+            .attr("height", (size * 2))
     };
 
     var api = apijs (n)

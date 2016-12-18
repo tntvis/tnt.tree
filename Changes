@@ -72,3 +72,5 @@
    - bugfix: scale bar was not set when the first branch had length 0
 0.1.9
    - removed extra logs in built
+0.1.10
+   - bugfix: feature's proxy was not given attributes
