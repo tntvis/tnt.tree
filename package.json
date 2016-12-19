@@ -1,6 +1,6 @@
 {
   "name": "tnt.tree",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "TnT tree display",
   "main": "index.js",
   "directories": {
