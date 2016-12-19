@@ -76,3 +76,5 @@
    - bugfix: feature's proxy was not given attributes
 0.1.11
    - restore the build directory
+0.1.12
+   - added .npmignore
