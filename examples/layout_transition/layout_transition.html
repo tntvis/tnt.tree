@@ -5,7 +5,7 @@
 <div id="body">
 
   <!-- D3.js -->
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 
   <!-- TnT -->
   <link rel="stylesheet" href="../../build/index.css" type="text/css" />
@@ -17,16 +17,16 @@
   <div id="tree"></div>
 
   <script>
-    (function() {
-    var tree = tnt.tree()
-    var theme = tnt_theme_tree_layout_transition();
-    theme(tree, document.getElementById("tree"));
-    }());
+      (function () {
+          var tree = tnt.tree()
+          var theme = tnt_theme_tree_layout_transition();
+          theme(tree, document.getElementById("tree"));
+      }());
   </script>
 
   <footer>
     <aside>Released under <a href="http://www.opensource.org/licenses/apache2.0.php">Apache 2.0</a>.</aside>
-    Copyright [2016] EMBL - European Bioinformatics Institute
+    Copyright [2017] EMBL - European Bioinformatics Institute
   </footer>
 
 

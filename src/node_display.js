@@ -1,4 +1,5 @@
 var apijs = require("tnt.api");
+var utils = require('tnt.utils');
 var tree = {};
 
 tree.node_display = function () {
@@ -7,7 +8,8 @@ tree.node_display = function () {
     var n = function (node) {
         var proxy;
         var thisProxy = d3.select(this).select(".tnt_tree_node_proxy");
-        if (thisProxy[0][0] === null) {
+        // if (thisProxy[0][0] === null) {
+        if (!thisProxy.size()) {
             proxy = d3.select(this)
                 .append("rect")
                 .attr("class", "tnt_tree_node_proxy");
@@ -17,7 +19,7 @@ tree.node_display = function () {
         }
 
     	n.display().call(this, node);
-        var size = d3.functor(n.size())(node);
+        var size = utils.functor(n.size())(node);
         proxy
             .attr("x", (-size))
             .attr("y", (-size))
@@ -49,16 +51,16 @@ tree.node_display.circle = function () {
     	d3.select(this)
             .append("circle")
             .attr("r", function (d) {
-                return d3.functor(n.size())(node);
+                return utils.functor(n.size())(node);
             })
             .attr("fill", function (d) {
-                return d3.functor(n.fill())(node);
+                return utils.functor(n.fill())(node);
             })
             .attr("stroke", function (d) {
-                return d3.functor(n.stroke())(node);
+                return utils.functor(n.stroke())(node);
             })
             .attr("stroke-width", function (d) {
-                return d3.functor(n.stroke_width())(node);
+                return utils.functor(n.stroke_width())(node);
             })
             .attr("class", "tnt_node_display_elem");
     });
@@ -70,7 +72,7 @@ tree.node_display.square = function () {
     var n = tree.node_display();
 
     n.display (function (node) {
-	var s = d3.functor(n.size())(node);
+	var s = utils.functor(n.size())(node);
 	d3.select(this)
         .append("rect")
         .attr("x", function (d) {
@@ -86,13 +88,13 @@ tree.node_display.square = function () {
             return s*2;
         })
         .attr("fill", function (d) {
-            return d3.functor(n.fill())(node);
+            return utils.functor(n.fill())(node);
         })
         .attr("stroke", function (d) {
-            return d3.functor(n.stroke())(node);
+            return utils.functor(n.stroke())(node);
         })
         .attr("stroke-width", function (d) {
-            return d3.functor(n.stroke_width())(node);
+            return utils.functor(n.stroke_width())(node);
         })
         .attr("class", "tnt_node_display_elem");
     });
@@ -104,18 +106,18 @@ tree.node_display.triangle = function () {
     var n = tree.node_display();
 
     n.display (function (node) {
-	var s = d3.functor(n.size())(node);
+	var s = utils.functor(n.size())(node);
 	d3.select(this)
         .append("polygon")
         .attr("points", (-s) + ",0 " + s + "," + (-s) + " " + s + "," + s)
         .attr("fill", function (d) {
-            return d3.functor(n.fill())(node);
+            return utils.functor(n.fill())(node);
         })
         .attr("stroke", function (d) {
-            return d3.functor(n.stroke())(node);
+            return utils.functor(n.stroke())(node);
         })
         .attr("stroke-width", function (d) {
-            return d3.functor(n.stroke_width())(node);
+            return utils.functor(n.stroke_width())(node);
         })
         .attr("class", "tnt_node_display_elem");
     });
@@ -133,11 +135,11 @@ tree.node_display.triangle = function () {
 //     var conds = [];
 //
 //     n.display (function (node) {
-//         var s = d3.functor(n.size())(node);
+//         var s = utils.functor(n.size())(node);
 //         for (var i=0; i<conds.length; i++) {
 //             var cond = conds[i];
 //             // For each node, the first condition met is used
-//             if (d3.functor(cond.callback).call(this, node) === true) {
+//             if (utils.functor(cond.callback).call(this, node) === true) {
 //                 cond.display.call(this, node);
 //                 break;
 //             }

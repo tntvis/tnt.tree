@@ -9,10 +9,12 @@ tree.layout = function () {
     var l = function () {
     };
 
-    var cluster = d3.layout.cluster()
-    	.sort(null)
-    	.value(function (d) {return d.length;} )
-    	.separation(function () {return 1;});
+    var cluster = d3.cluster()
+    	// .sort(null)
+    	// .value(function (d) {return d.length;} )
+    	.separation (function () {
+    		return 1;
+    	});
 
     var api = apijs (l)
     	.getset ('scale', true)
@@ -62,7 +64,7 @@ tree.layout.vertical = function () {
     });
 
     api.method('yscale', function (dists) {
-    	return d3.scale.linear()
+    	return d3.scaleLinear()
     	    .domain([0, d3.max(dists)])
     	    .range([0, layout.width() - 20 - layout.max_leaf_label_width()]);
     });
@@ -107,7 +109,7 @@ tree.layout.radial = function () {
     });
 
     api.method ("yscale",  function (dists) {
-	return d3.scale.linear()
+	return d3.scaleLinear()
 	    .domain([0,d3.max(dists)])
 	    .range([0, r]);
     });

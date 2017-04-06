@@ -2,7 +2,8 @@
 
 <head>
     <!-- D3 -->
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="https://d3js.org/d3-selection-multi.v1.min.js" charset="utf-8"></script>
 
     <!-- TnT -->
     <link rel="stylesheet" href="../../build/tnt.tree.css" />
@@ -39,7 +40,7 @@
 
     legend
         .append("div")
-        .style({
+        .styles({
             width:"50px",
             height:"5px",
             "background-color":"steelblue",
@@ -49,10 +50,11 @@
 
     legend
         .append("text")
-        .style({
+        .styles({
             "font-size": "12px"
         })
         .text(scaleBar);
+
     </script>
 
 </body>

@@ -1,4 +1,5 @@
 var apijs = require("tnt.api");
+var utils = require('tnt.utils');
 var tree = {};
 
 tree.label = function () {
@@ -16,7 +17,8 @@ tree.label = function () {
             throw(node);
         }
 
-        label.display().call(this, node, layout_type)
+        label.display()
+            .call(this, node, layout_type)
             .attr("class", "tnt_tree_label")
             .attr("transform", function (d) {
                 var t = label.transform()(node, layout_type);
@@ -24,16 +26,16 @@ tree.label = function () {
             })
         // TODO: this click event is probably never fired since there is an onclick event in the node g element?
             .on("click", function () {
-                dispatch.click.call(this, node)
+                dispatch.call("click", this, node)
             })
             .on("dblclick", function () {
-                dispatch.dblclick.call(this, node)
+                dispatch.call("dblclick", this, node)
             })
             .on("mouseover", function () {
-                dispatch.mouseover.call(this, node)
+                dispatch.call("mouseover", this, node)
             })
             .on("mouseout", function () {
-                dispatch.mouseout.call(this, node)
+                dispatch.call("mouseout", this, node)
             })
     };
 
@@ -44,7 +46,13 @@ tree.label = function () {
         .getset ('transform', function () { throw "Need a transform callback" })
         //.getset ('on_click');
 
-    return d3.rebind (label, dispatch, "on");
+    // return d3.rebind (label, dispatch, "on");
+    label.on = function () {
+        var value = dispatch.on.apply(dispatch, arguments);
+        return value === dispatch ? label : value;
+    };
+
+    return label;
 };
 
 // Text based labels
@@ -57,7 +65,7 @@ tree.label.text = function () {
         .getset ('color', "#000")
         .getset ('text', function (d) {
             return d.data().name;
-        })
+        });
 
     label.display (function (node, layout_type) {
         var l = d3.select(this)
@@ -72,12 +80,12 @@ tree.label.text = function () {
                 return label.text()(node)
             })
             .style('font-size', function () {
-                return d3.functor(label.fontsize())(node) + "px";
+                return utils.functor(label.fontsize())(node) + "px";
             })
             .style('font-weight', function () {
-                return d3.functor(label.fontweight())(node);
+                return utils.functor(label.fontweight())(node);
             })
-            .style('fill', d3.functor(label.color())(node));
+            .style('fill', utils.functor(label.color())(node));
 
         return l;
     });
@@ -109,7 +117,7 @@ tree.label.text = function () {
 
         var text = svg
             .append("text")
-            .style('font-size', d3.functor(label.fontsize())(node) + "px")
+            .style('font-size', utils.functor(label.fontsize())(node) + "px")
             .text(label.text()(node));
 
         var width = text.node().getBBox().width;
@@ -119,7 +127,7 @@ tree.label.text = function () {
     });
 
     label.height (function (node) {
-        return d3.functor(label.fontsize())(node);
+        return utils.functor(label.fontsize())(node);
     });
 
     return label;

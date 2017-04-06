@@ -28,7 +28,7 @@
   "homepage": "https://github.com/tntvis/tnt.tree",
   "sniper": {
     "js": [
-      "http://d3js.org/d3.v3.min.js",
+      "http://d3js.org/d3.v4.min.js",
       "http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js",
       "http://tntvis.github.io/tnt.rest/build/tnt.rest.min.js",
       "/snippets/data/species_data.js"
