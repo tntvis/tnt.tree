@@ -1,6 +1,7 @@
 // if (typeof tnt === "undefined") {
 //     module.exports = tnt = {}
 // }
+var tree;
 module.exports = tree = require("./src/index.js");
 var eventsystem = require("biojs-events");
 eventsystem.mixin(tree);

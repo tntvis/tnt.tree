@@ -78,3 +78,5 @@
    - restore the build directory
 0.1.12
    - added .npmignore
+0.1.13
+   - bugfix: tree was undefined in index.js
